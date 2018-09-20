@@ -37,13 +37,12 @@ class Client extends BaseClient
      */
     public function get($name)
     {
-        $name = !empty($this->directory) ? ucfirst($this->directory) . '\\' . ucfirst($name) : ucfirst($name);
+        $name = ucfirst($name);
         $class = '\Sctr\Greenrope\Api\Endpoint\\' . $name . 'Endpoint';
 
         if (!class_exists($class)) {
             throw new \Exception("Endpoint \"{$name}\" does not exist. ");
         }
-        $this->directory = '';
 
         return new $class($this);
     }

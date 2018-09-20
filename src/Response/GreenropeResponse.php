@@ -6,7 +6,7 @@ use JMS\Serializer\Annotation as Serializer;
 
 abstract class GreenropeResponse
 {
-    public const SUCCESSFUL_RESPONSE = 'Success';
+    public const ERROR_RESPONSE = 'Error';
 
     /**
      * @Serializer\Type("string")
@@ -31,7 +31,7 @@ abstract class GreenropeResponse
      */
     public function getSuccess()
     {
-        return $this->success === self::SUCCESSFUL_RESPONSE ? true : false;
+        return $this->success !== self::ERROR_RESPONSE ? true : false;
     }
 
     /**

@@ -76,6 +76,7 @@ class UserDefinedField extends AbstractModel
 
     /**
      * @Serializer\XmlValue(cdata=false)
+     * @Serializer\Type("string")
      */
     protected $value;
 }

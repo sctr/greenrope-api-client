@@ -6,9 +6,9 @@ use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 /**
- * @Serializer\XmlRoot("AddContactsResponse")
+ * @Serializer\XmlRoot("UnsubscribeContactsResponse")
  */
-class AddContactsResponse extends GreenropeResponse
+class UnsubscribeContactsResponse extends GreenropeResponse
 {
     /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")

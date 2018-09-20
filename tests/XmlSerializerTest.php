@@ -4,6 +4,7 @@ namespace Sctr\Greenrope\Api\Tests;
 
 use Sctr\Greenrope\Api\Model\Contact;
 use Sctr\Greenrope\Api\Request\Contact\AddContactsRequest;
+use Sctr\Greenrope\Api\Request\Contact\SearchContactsRequest;
 use Sctr\Greenrope\Api\Service\XmlSerializer;
 
 class XmlSerializerTest extends BaseTest
@@ -44,5 +45,44 @@ class XmlSerializerTest extends BaseTest
         $this->assertTrue(strpos('<Tag>', $serializedContact) >= 0);
         $this->assertTrue(strpos('<UserDefinedFields>', $serializedContact) >= 0);
         $this->assertTrue(strpos('<UserDefinedField fieldname="test fieldname">Dog</UserDefinedField>', $serializedContact) >= 0);
+    }
+
+    public function testSearchContactsSerialize()
+    {
+        $request = [
+            'from' => 'Bla',
+            'filter' => 'Any',
+            'orderBy' => 'ID',
+            'includes' => [
+                'unsubscribers' => 'Y',
+                'bouncedContacts' => 'Y'
+            ],
+            'rules' => [
+                ['field' => 'id', 'operator' => 'contains', 'value' => 123],
+                ['field' => 'id', 'operator' => 'contains', 'value' => 123],
+            ],
+            'groups' => [
+                ['value' => '1'],
+                ['value' => 2]
+            ]
+        ];
+
+        $request = new SearchContactsRequest($request);
+
+        $serializer = new XmlSerializer();
+        $serializedRequest = $serializer->serializeObjectToXml($request);
+
+        $this->assertStringStartsWith("<SearchContactsRequest>", $serializedRequest);
+        $this->assertStringEndsWith("</SearchContactsRequest>\n", $serializedRequest);
+        $this->assertTrue(strpos('<Includes>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<\Includes>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<Unsubscribers>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<\BouncedContacts>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<Filter>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<\From>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<Rules>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<\Rule>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<Field>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<\Operator>', $serializedRequest) >= 0);
     }
 }

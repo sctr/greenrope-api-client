@@ -19,6 +19,10 @@ class GetEventsResponse extends GreenropeResponse
 
     public function getResult()
     {
+        if ($this->getErrorCode()) {
+            return null;
+        }
+
         return $this->events;
     }
 }

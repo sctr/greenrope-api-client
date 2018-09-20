@@ -1,12 +1,12 @@
 <?php
 
 /*
- * Copyright 2016 SCTR Services
+ * Copyright 2018 SCTR Services
  *
  * Distribution and reproduction are prohibited.
  *
- * @package     bang-api-client
- * @copyright   SCTR Services LLC 2016
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
  * @license     No License (Proprietary)
  */
 

@@ -14,7 +14,7 @@ class GroupEndpoint extends AbstractEndpoint
      */
     public function create(array $parameters)
     {
-        return $this->handleRequest('Group', 'Create', $parameters);
+        return $this->handleRequest('Group', 'Create', $parameters, false);
     }
 
     /**

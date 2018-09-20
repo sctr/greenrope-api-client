@@ -7,41 +7,33 @@ use Sctr\Greenrope\Api\Model\Contact;
 
 class ContactEndpointTest extends BaseTest
 {
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
     public function testAddContactsRequest()
     {
         $contact1 = [
             'query' => ['account_id' => 45429],
-            'firstName' => 'Test 1',
-            'lastName' => 'Test 1',
-            'email' => 'testEmail1@test.com',
-            'company' => 'Company test 1',
-            'title' => 'Title test 1',
-            'Address1' => 'Address 1 1',
+            'firstName' => 'Test',
+            'lastName' => 'Test',
+            'email' => 'testEmail@test.com',
             'groups' => [
-                ['id' => 1, 'name' => "test"]
-            ]
-        ];
-
-        $contact2 = [
-            'query' => ['account_id' => 45429],
-            'firstName' => 'Test 2',
-            'lastName' => 'Test 2',
-            'email' => 'testEmail2@test.com',
-            'company' => 'Company test 2',
-            'title' => 'Title test 2',
-            'Address1' => 'Address 2 1',
-            'groups' => [
-                ['id' => 1, 'name' => "test"]
+                ['id' => 16, 'name' => "Test group"]
+            ],
+            'userDefinedFields' => [
+                ['query' => ['fieldname' => 'first value fieldname'], 'value' => 'First value'],
+                ['query' => ['fieldname' => 'second value fieldname'], 'value' => 'Second value']
             ]
         ];
 
         /** @var ApiResponse $response */
-        $response = $this->client->contact->addContacts([$contact1, $contact2]);
+        $response = $this->client->contact->addContacts([$contact1]);
 
         $this->assertTrue(is_array($response->getResult()));
 
         $this->assertInstanceOf(Contact::class, $response->getResult()[0]);
-        $this->assertInstanceOf(Contact::class, $response->getResult()[1]);
     }
 
     public function testGetContacts()
@@ -78,12 +70,80 @@ class ContactEndpointTest extends BaseTest
 
     public function testDeleteContacts()
     {
-        $contact1 = ['query' => ['contact_id' => 27, 'account_id' => 45429]];
+        $contact1 = ['query' => ['contact_id' => 30, 'account_id' => 45429]];
 
-        $response = $this->client->contact->deleteContacts([$contact1]);
+        $response = $this->client->contact->unsubscribeContacts([$contact1]);
 
         $this->assertInstanceOf(Contact::class, $response->getResult()[0]);
         $this->assertTrue($response->getResult()[0]->getId() === 27);
         $this->assertTrue($response->getResult()[0]->getSuccess());
+    }
+
+    public function testGetUserDefinedFields()
+    {
+        $query = ['account_id' => 45429];
+
+        $response = $this->client->contact->getUserDefinedFields($query);
+
+        $this->assertTrue(is_array($response->getResult()));
+    }
+
+    public function testGetContactGroups()
+    {
+        $response = $this->client->contact->getContactGroupsRequest(4);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testSearchContacts()
+    {
+        $searchParams = [
+            'query' => ['account_id' => 45429, 'group_id' => 5],
+            'from' => 'single',
+            'groups' => [
+                ['value' => '1'],
+                ['value' => 2]
+            ]
+        ];
+
+        $response = $this->client->contact->searchContacts($searchParams);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testAddUserDefinedField()
+    {
+        $newFieldParams = [
+            'query' => ['group_id' => 5, 'account_id' => 45429],
+            'fieldName' => 'Test field'
+        ];
+
+        $response = $this->client->contact->addUserDefinedField($newFieldParams);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testEditUserDefinedField()
+    {
+        $newFieldParams = [
+            'query' => ['group_id' => 5, 'account_id' => 45429],
+            'fieldName' => 'Test field'
+        ];
+
+        $response = $this->client->contact->editUserDefinedField($newFieldParams);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testDeleteUserDefinedField()
+    {
+        $newFieldParams = [
+            'query' => ['group_id' => 5, 'account_id' => 45429],
+            'fieldName' => 'Test field'
+        ];
+
+        $response = $this->client->contact->deleteUserDefinedField($newFieldParams);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
     }
 }

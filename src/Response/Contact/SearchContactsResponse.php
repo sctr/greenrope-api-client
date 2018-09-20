@@ -6,9 +6,9 @@ use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 /**
- * @Serializer\XmlRoot("AddContactsResponse")
+ * @Serializer\XmlRoot("GetContactsResponse")
  */
-class AddContactsResponse extends GreenropeResponse
+class SearchContactsResponse extends GreenropeResponse
 {
     /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")
@@ -17,12 +17,21 @@ class AddContactsResponse extends GreenropeResponse
      */
     protected $contacts;
 
+    /**
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("TotalMatchingContacts")
+     */
+    protected $total;
+
     public function getResult()
     {
         if ($this->getErrorCode()) {
             return null;
         }
 
-        return $this->contacts;
+        return [
+            'contacts' => $this->contacts,
+            'total' => $this->total
+        ];
     }
 }
