@@ -1,13 +1,20 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Tests;
 
 use Sctr\Greenrope\Api\Client;
 use Sctr\Greenrope\Api\Endpoint\AbstractEndpoint;
-use Sctr\Greenrope\Api\Model\Contact;
-use Sctr\Greenrope\Api\Request\Contact\AddContactsRequest;
 use Sctr\Greenrope\Api\Response\ApiAuthTokenResponse;
-use Sctr\Greenrope\Api\Service\XmlSerializer;
 
 class GeneralTest extends BaseTest
 {
@@ -20,16 +27,16 @@ class GeneralTest extends BaseTest
     {
         $params =['email' => 'thomas@bang.com', 'password' => 'SctrApi5!', 'api_url' => 'https://api.stgi.net/api-xml'];
 
-        $auth = new class(new Client($params)) extends AbstractEndpoint{
+        $auth = new class(new Client($params)) extends AbstractEndpoint {
             public function getAuthToken()
             {
                 $parameters = [
-                    'email' => 'thomas@bang.com',
+                    'email'    => 'thomas@bang.com',
                     'password' => 'SctrApi5!',
-                    'xml' => AbstractEndpoint::GET_AUTH_TOKEN_XML
+                    'xml'      => AbstractEndpoint::GET_AUTH_TOKEN_XML,
                 ];
 
-                $response = $this->client->post('https://api.stgi.net/api-xml', [ 'form_params' => $parameters ]);
+                $response = $this->client->post('https://api.stgi.net/api-xml', ['form_params' => $parameters]);
 
                 /** @var ApiAuthTokenResponse $response */
                 $response = $this->xmlConverter->deserializeXml($response->getBody(), ApiAuthTokenResponse::class);
@@ -37,7 +44,7 @@ class GeneralTest extends BaseTest
                 if ($response->getSuccess() && !empty($response->getResult())) {
                     return $response->getResult();
                 } else {
-                    throw new \Exception(sprintf("Authentication error: %s", $response->getErrorText()));
+                    throw new \Exception(sprintf('Authentication error: %s', $response->getErrorText()));
                 }
             }
         };

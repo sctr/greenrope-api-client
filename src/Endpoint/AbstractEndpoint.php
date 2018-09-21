@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Endpoint;
 
 use GuzzleHttp\Client;
@@ -15,8 +25,8 @@ abstract class AbstractEndpoint
     public const GET_AUTH_TOKEN_XML = '<GetAuthTokenRequest></GetAuthTokenRequest>';
 
     public const IRREGULAR_PLURALS = [
-        'Company' => 'Companies',
-        'CRM Activity' => 'CRM Activities'
+        'Company'      => 'Companies',
+        'CRM Activity' => 'CRM Activities',
     ];
 
     /** @var Client */
@@ -42,8 +52,8 @@ abstract class AbstractEndpoint
     {
         $this->client = $client;
 
-        $this->apiUri = $client->getConfig('base_uri');
-        $this->email = $client->getConfig('email');
+        $this->apiUri   = $client->getConfig('base_uri');
+        $this->email    = $client->getConfig('email');
         $this->password = $client->getConfig('password');
 
         $this->xmlConverter = new XmlSerializer();
@@ -54,8 +64,9 @@ abstract class AbstractEndpoint
      * @param $method - add, get, edit, delete
      * @param array $parameters
      *
-     * @return mixed
      * @throws \Exception
+     *
+     * @return mixed
      */
     protected function handleRequest($objectName, $method, array $parameters = [], $multipleObjects = true, $additionalNameParameters = null)
     {
@@ -78,7 +89,7 @@ abstract class AbstractEndpoint
         $responseObject = $this->xmlConverter->deserializeXml($response->getBody(), $responseName);
         if (!$responseObject->getSuccess()) {
             $apiResponse->setException(
-                new \Exception(sprintf("An error occured: %s", $responseObject->getErrorText()))
+                new \Exception(sprintf('An error occured: %s', $responseObject->getErrorText()))
             );
         }
 
@@ -96,7 +107,7 @@ abstract class AbstractEndpoint
     }
 
     /**
-     * Retrieves the auth token
+     * Retrieves the auth token.
      *
      * @throws \Exception
      */
@@ -105,7 +116,7 @@ abstract class AbstractEndpoint
         $parameters = [
             'email'    => $this->email,
             'password' => $this->password,
-            'xml'      => self::GET_AUTH_TOKEN_XML
+            'xml'      => self::GET_AUTH_TOKEN_XML,
         ];
 
         $response = $this->client->post($this->apiUri, ['form_params' => $parameters]);
@@ -116,7 +127,7 @@ abstract class AbstractEndpoint
         if ($response->getSuccess() && !empty($response->getResult())) {
             $this->token = $response->getResult();
         } else {
-            throw new \Exception(sprintf("Authentication error: %s", $response->getErrorText()));
+            throw new \Exception(sprintf('Authentication error: %s', $response->getErrorText()));
         }
     }
 
@@ -132,15 +143,15 @@ abstract class AbstractEndpoint
         if ($method == 'Get' || $method === 'Search' || !$multipleObjects) {
             $objectsArray = $parameters;
         } else {
-            $objectsArray = [];
-            $fullObjectName = 'Sctr\Greenrope\Api\Model\\' . $objectName;
+            $objectsArray   = [];
+            $fullObjectName = 'Sctr\Greenrope\Api\Model\\'.$objectName;
             foreach ($parameters as $arrayParameters) {
-                $object = new $fullObjectName($arrayParameters);
+                $object         = new $fullObjectName($arrayParameters);
                 $objectsArray[] = $object;
             }
         }
 
-        $requestName = 'Sctr\Greenrope\Api\Request\\' . ucfirst($objectName) . '\\' . ucfirst($method) . ucfirst($objectName);
+        $requestName = 'Sctr\Greenrope\Api\Request\\'.ucfirst($objectName).'\\'.ucfirst($method).ucfirst($objectName);
 
         if ($multipleObjects) {
             $requestName .= 's';
@@ -158,10 +169,10 @@ abstract class AbstractEndpoint
 
         $parameters = [
             'form_params' => [
-                "email"      => $this->email,
+                'email'      => $this->email,
                 'auth_token' => $this->token,
-                'xml'        => $xml
-            ]
+                'xml'        => $xml,
+            ],
         ];
 
         return $parameters;
@@ -169,7 +180,7 @@ abstract class AbstractEndpoint
 
     private function generateResponseClassName($objectName, $method, $mutipleObjects, $additionalNameParameters)
     {
-        $responseName = 'Sctr\Greenrope\Api\Response\\' . ucfirst($objectName) . '\\' . ucfirst($method) . ucfirst($objectName);
+        $responseName = 'Sctr\Greenrope\Api\Response\\'.ucfirst($objectName).'\\'.ucfirst($method).ucfirst($objectName);
 
         if ($mutipleObjects) {
             $responseName .= 's';

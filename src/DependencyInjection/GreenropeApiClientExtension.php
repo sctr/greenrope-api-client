@@ -36,7 +36,7 @@ class GreenropeApiClientExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config        = $this->processConfiguration($configuration, $configs);
 
         $def = new Definition(Client::class);
         $def->setArguments($config);
@@ -44,4 +44,3 @@ class GreenropeApiClientExtension extends Extension
         $container->setDefinition('Sctr\Greenrope\Api\Client', $def);
     }
 }
-

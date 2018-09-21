@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Endpoint;
 
 use Sctr\Greenrope\Api\ApiResponse;
@@ -9,8 +19,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $contacts - an array containing arrays of contact data
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function addContacts(array $contacts)
     {
@@ -18,12 +29,13 @@ class ContactEndpoint extends AbstractEndpoint
     }
 
     /**
-     * Searches contacts by the provided attributes
+     * Searches contacts by the provided attributes.
      *
      * @param array $searchAttributes
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function getContacts(array $searchAttributes = [])
     {
@@ -33,8 +45,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $contacts
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function editContacts(array $contacts)
     {
@@ -44,8 +57,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $contacts
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function deleteContacts(array $contacts)
     {
@@ -55,8 +69,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $contacts
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function unsubscribeContacts(array $contacts)
     {
@@ -66,8 +81,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param $contactId
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function getContactGroupsRequest($contactId)
     {
@@ -77,8 +93,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $searchContacts
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function searchContacts(array $searchContacts)
     {
@@ -88,8 +105,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $contacts
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function getUserDefinedFields(array $parameters)
     {
@@ -99,8 +117,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $newFieldParameters
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function addUserDefinedField(array $newFieldParameters)
     {
@@ -110,8 +129,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $editFieldParameters
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function editUserDefinedField(array $editFieldParameters)
     {
@@ -121,8 +141,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $editFieldParameters
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function deleteUserDefinedField(array $editFieldParameters)
     {
