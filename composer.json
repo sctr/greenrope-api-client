@@ -1,0 +1,25 @@
+{
+    "name": "sctr/greenrope-api-client",
+    "description": "Client for greenrope API",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "phpunit/phpunit": "^7.3",
+        "jms/serializer": "^1.13"
+    },
+    "license": "Proprietary",
+    "autoload":          {
+        "psr-4": {
+            "Sctr\\Greenrope\\Api\\": "src"
+        }
+    },
+    "autoload-dev":          {
+        "psr-4": {
+            "Sctr\\Greenrope\\Api\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "stable",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.3"
+    }
+}
