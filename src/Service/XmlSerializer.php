@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Service;
 
 use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
@@ -31,7 +41,7 @@ class XmlSerializer
     {
         $result = $this->serializer->serialize($object, 'xml');
 
-        $result = str_replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", "", $result);
+        $result = str_replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", '', $result);
 
         return $result;
     }

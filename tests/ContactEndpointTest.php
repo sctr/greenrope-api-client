@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Tests;
 
 use Sctr\Greenrope\Api\ApiResponse;
@@ -15,17 +25,17 @@ class ContactEndpointTest extends BaseTest
     public function testAddContactsRequest()
     {
         $contact1 = [
-            'query' => ['account_id' => 45429],
+            'query'     => ['account_id' => 45429],
             'firstName' => 'Test',
-            'lastName' => 'Test',
-            'email' => 'testEmail@test.com',
-            'groups' => [
-                ['id' => 16, 'name' => "Test group"]
+            'lastName'  => 'Test',
+            'email'     => 'testEmail@test.com',
+            'groups'    => [
+                ['id' => 16, 'name' => 'Test group'],
             ],
             'userDefinedFields' => [
                 ['query' => ['fieldname' => 'first value fieldname'], 'value' => 'First value'],
-                ['query' => ['fieldname' => 'second value fieldname'], 'value' => 'Second value']
-            ]
+                ['query' => ['fieldname' => 'second value fieldname'], 'value' => 'Second value'],
+            ],
         ];
 
         /** @var ApiResponse $response */
@@ -39,7 +49,7 @@ class ContactEndpointTest extends BaseTest
     public function testGetContacts()
     {
         $searchAttributes = [
-            'account_id' => 45429
+            'account_id' => 45429,
         ];
 
         /** @var ApiResponse $response */
@@ -55,10 +65,10 @@ class ContactEndpointTest extends BaseTest
         $editContact1 = [
             'query' => [
                 'account_id' => 45429,
-                'contact_id' => 27
+                'contact_id' => 27,
             ],
             'firstName' => 'Test Edited',
-            'lastName' => 'Test Edited',
+            'lastName'  => 'Test Edited',
         ];
 
         $response = $this->client->contact->editContacts([$editContact1]);
@@ -98,12 +108,12 @@ class ContactEndpointTest extends BaseTest
     public function testSearchContacts()
     {
         $searchParams = [
-            'query' => ['account_id' => 45429, 'group_id' => 5],
-            'from' => 'single',
+            'query'  => ['account_id' => 45429, 'group_id' => 5],
+            'from'   => 'single',
             'groups' => [
                 ['value' => '1'],
-                ['value' => 2]
-            ]
+                ['value' => 2],
+            ],
         ];
 
         $response = $this->client->contact->searchContacts($searchParams);
@@ -114,8 +124,8 @@ class ContactEndpointTest extends BaseTest
     public function testAddUserDefinedField()
     {
         $newFieldParams = [
-            'query' => ['group_id' => 5, 'account_id' => 45429],
-            'fieldName' => 'Test field'
+            'query'     => ['group_id' => 5, 'account_id' => 45429],
+            'fieldName' => 'Test field',
         ];
 
         $response = $this->client->contact->addUserDefinedField($newFieldParams);
@@ -126,8 +136,8 @@ class ContactEndpointTest extends BaseTest
     public function testEditUserDefinedField()
     {
         $newFieldParams = [
-            'query' => ['group_id' => 5, 'account_id' => 45429],
-            'fieldName' => 'Test field'
+            'query'     => ['group_id' => 5, 'account_id' => 45429],
+            'fieldName' => 'Test field',
         ];
 
         $response = $this->client->contact->editUserDefinedField($newFieldParams);
@@ -138,8 +148,8 @@ class ContactEndpointTest extends BaseTest
     public function testDeleteUserDefinedField()
     {
         $newFieldParams = [
-            'query' => ['group_id' => 5, 'account_id' => 45429],
-            'fieldName' => 'Test field'
+            'query'     => ['group_id' => 5, 'account_id' => 45429],
+            'fieldName' => 'Test field',
         ];
 
         $response = $this->client->contact->deleteUserDefinedField($newFieldParams);

@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Tests;
 
 use Sctr\Greenrope\Api\Model\Contact;
@@ -12,32 +22,32 @@ class XmlSerializerTest extends BaseTest
     public function testSerializerSerialize()
     {
         $contact = new Contact([
-            'query' => ['account_id' => 45429],
-            'id' => 1,
+            'query'     => ['account_id' => 45429],
+            'id'        => 1,
             'firstName' => 'Test',
-            'lastName' => 'Test',
-            'company' => 'Company test',
-            'title' => 'Title test',
-            'Address1' => 'Address 1',
-            'groups' => [
-                ['id' => 1, 'name' => "test"],
-                ['id' => 2, 'name' => 'dfd']
+            'lastName'  => 'Test',
+            'company'   => 'Company test',
+            'title'     => 'Title test',
+            'Address1'  => 'Address 1',
+            'groups'    => [
+                ['id' => 1, 'name' => 'test'],
+                ['id' => 2, 'name' => 'dfd'],
             ],
             'tags' => [
                 ['id' => 1, 'name' => 'test tag', 'abbreviation' => 'tt'],
-                ['id' => 1, 'name' => 'test tag', 'abbreviation' => 'tt']
+                ['id' => 1, 'name' => 'test tag', 'abbreviation' => 'tt'],
             ],
             'userDefinedFields' => [
-                ['query' => ['fieldname' => 'test fieldname'], 'value' => 'Dog']
-            ]
+                ['query' => ['fieldname' => 'test fieldname'], 'value' => 'Dog'],
+            ],
         ]);
 
         $contacts = new AddContactsRequest([$contact]);
 
-        $serializer = new XmlSerializer();
+        $serializer        = new XmlSerializer();
         $serializedContact = $serializer->serializeObjectToXml($contacts);
 
-        $this->assertStringStartsWith("<AddContactsRequest>", $serializedContact);
+        $this->assertStringStartsWith('<AddContactsRequest>', $serializedContact);
         $this->assertStringEndsWith("</AddContactsRequest>\n", $serializedContact);
         $this->assertTrue(strpos('<Groups>', $serializedContact) >= 0);
         $this->assertTrue(strpos('<Group>', $serializedContact) >= 0);
@@ -50,12 +60,12 @@ class XmlSerializerTest extends BaseTest
     public function testSearchContactsSerialize()
     {
         $request = [
-            'from' => 'Bla',
-            'filter' => 'Any',
-            'orderBy' => 'ID',
+            'from'     => 'Bla',
+            'filter'   => 'Any',
+            'orderBy'  => 'ID',
             'includes' => [
-                'unsubscribers' => 'Y',
-                'bouncedContacts' => 'Y'
+                'unsubscribers'   => 'Y',
+                'bouncedContacts' => 'Y',
             ],
             'rules' => [
                 ['field' => 'id', 'operator' => 'contains', 'value' => 123],
@@ -63,16 +73,16 @@ class XmlSerializerTest extends BaseTest
             ],
             'groups' => [
                 ['value' => '1'],
-                ['value' => 2]
-            ]
+                ['value' => 2],
+            ],
         ];
 
         $request = new SearchContactsRequest($request);
 
-        $serializer = new XmlSerializer();
+        $serializer        = new XmlSerializer();
         $serializedRequest = $serializer->serializeObjectToXml($request);
 
-        $this->assertStringStartsWith("<SearchContactsRequest>", $serializedRequest);
+        $this->assertStringStartsWith('<SearchContactsRequest>', $serializedRequest);
         $this->assertStringEndsWith("</SearchContactsRequest>\n", $serializedRequest);
         $this->assertTrue(strpos('<Includes>', $serializedRequest) >= 0);
         $this->assertTrue(strpos('<\Includes>', $serializedRequest) >= 0);

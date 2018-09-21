@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Model;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -10,16 +20,16 @@ use JMS\Serializer\Annotation as Serializer;
 class UserDefinedField extends AbstractModel
 {
     public const ALLOWED_FIELD_TYPES = [
-        'Select' => 'Select',
-        'Checkbox' => 'Checkbox',
-        'Text' => 'Text',
-        'ShortText' => 'ShortText'
+        'Select'    => 'Select',
+        'Checkbox'  => 'Checkbox',
+        'Text'      => 'Text',
+        'ShortText' => 'ShortText',
     ];
 
     public const ALLOWED_CONTACT_EDITABLE = [
-        'Hidden' => 'Hidden',
-        'Visible' => 'Visible',
-        'Editable' => 'Editable'
+        'Hidden'   => 'Hidden',
+        'Visible'  => 'Visible',
+        'Editable' => 'Editable',
     ];
 
     /**

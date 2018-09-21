@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Tests;
 
 use Sctr\Greenrope\Api\Model\Group;
@@ -10,8 +20,8 @@ class GroupEndpointTest extends BaseTest
     {
         $groupParameters = [
             'query' => ['account_id' => 45429],
-            'name' => $this->faker->name,
-            'type' => 'Hidden'
+            'name'  => $this->faker->name,
+            'type'  => 'Hidden',
         ];
 
         $response = $this->client->group->create($groupParameters);
@@ -27,8 +37,8 @@ class GroupEndpointTest extends BaseTest
 
         $groupParameters = [
             'query' => ['account_id' => 45429],
-            'name' => $name,
-            'type' => 'Hidden'
+            'name'  => $name,
+            'type'  => 'Hidden',
         ];
 
         // Successful create
@@ -42,7 +52,7 @@ class GroupEndpointTest extends BaseTest
     {
         $groupParameters = [
             'account_id' => 45429,
-            'group_id' => 14
+            'group_id'   => 14,
         ];
 
         $response = $this->client->group->getGroups($groupParameters);

@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api;
 
 use GuzzleHttp\Client as BaseClient;
@@ -37,8 +47,8 @@ class Client extends BaseClient
      */
     public function get($name)
     {
-        $name = ucfirst($name);
-        $class = '\Sctr\Greenrope\Api\Endpoint\\' . $name . 'Endpoint';
+        $name  = ucfirst($name);
+        $class = '\Sctr\Greenrope\Api\Endpoint\\'.$name.'Endpoint';
 
         if (!class_exists($class)) {
             throw new \Exception("Endpoint \"{$name}\" does not exist. ");

@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Response\Contact;
 
 use JMS\Serializer\Annotation as Serializer;
@@ -20,7 +30,7 @@ class DeleteContactsResponse extends GreenropeResponse
     public function getResult()
     {
         if ($this->getErrorCode()) {
-            return null;
+            return;
         }
 
         return $this->contacts;

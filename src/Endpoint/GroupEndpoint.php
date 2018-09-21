@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Endpoint;
 
 use Sctr\Greenrope\Api\ApiResponse;
@@ -8,9 +18,10 @@ class GroupEndpoint extends AbstractEndpoint
 {
     /**
      * @param array $parameters
-     * @return ApiResponse
      *
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function create(array $parameters)
     {
@@ -20,8 +31,9 @@ class GroupEndpoint extends AbstractEndpoint
     /**
      * @param array $searchAttributes
      *
-     * @return ApiResponse
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function getGroups(array $searchAttributes)
     {

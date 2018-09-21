@@ -1,12 +1,22 @@
 <?php
 
+/*
+ * Copyright 2018 SCTR Services
+ *
+ * Distribution and reproduction are prohibited.
+ *
+ * @package     greenrope-api-client
+ * @copyright   SCTR Services LLC 2018
+ * @license     No License (Proprietary)
+ */
+
 namespace Sctr\Greenrope\Api\Tests;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Faker\Factory as Faker;
 use Faker\Generator;
 use PHPUnit\Framework\TestCase;
 use Sctr\Greenrope\Api\Client;
-use Faker\Factory as Faker;
 
 abstract class BaseTest extends TestCase
 {
@@ -18,15 +28,15 @@ abstract class BaseTest extends TestCase
 
     public function setUp()
     {
-        $loader = require "../vendor/autoload.php";
-        AnnotationRegistry::registerLoader(array($loader, "loadClass"));
+        $loader = require '../vendor/autoload.php';
+        AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 
         $this->faker = Faker::create();
 
         $this->client = new Client([
-            'email' => 'thomas@bang.com',
+            'email'    => 'thomas@bang.com',
             'password' => 'SctrApi5!',
-            'api_url' => 'https://api.stgi.net/api-xml'
+            'api_url'  => 'https://api.stgi.net/api-xml',
         ]);
     }
 }
