@@ -16,11 +16,12 @@ use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Model\Group;
 use Sctr\Greenrope\Api\Model\Rule;
 use Sctr\Greenrope\Api\Model\SearchContactIncludes;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("SearchContactsRequest")
  */
-class SearchContactsRequest
+class SearchContactsRequest extends GreenropeRequest
 {
     /**
      * @Serializer\XmlAttributeMap()
@@ -66,6 +67,7 @@ class SearchContactsRequest
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
      * @Serializer\XmlList(entry="Rule", skipWhenEmpty=true)
+     * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Rule>")
      */
     protected $rules;
 
@@ -82,29 +84,4 @@ class SearchContactsRequest
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Group>")
      */
     protected $groups;
-
-    public function __construct(array $content = [])
-    {
-        foreach ($content as $key => $value) {
-            $key = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $key))));
-            if (property_exists($this, $key)) {
-                if ($key === 'includes') {
-                    $includes     = new SearchContactIncludes($value);
-                    $this->{$key} = $includes;
-                } elseif ($key === 'rules') {
-                    foreach ($value as $ruleParams) {
-                        $rule           = new Rule($ruleParams);
-                        $this->{$key}[] = $rule;
-                    }
-                } elseif ($key === 'groups') {
-                    foreach ($value as $groupParams) {
-                        $group          = new Group($groupParams);
-                        $this->{$key}[] = $group;
-                    }
-                } else {
-                    $this->{$key} = $value;
-                }
-            }
-        }
-    }
 }

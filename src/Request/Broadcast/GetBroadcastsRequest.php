@@ -22,7 +22,7 @@ class GetBroadcastsRequest
     /**
      * @Serializer\XmlAttributeMap()
      */
-    private $query;
+    protected $query;
 
     public function __construct(array $query = [])
     {

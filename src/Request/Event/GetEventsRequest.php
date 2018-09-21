@@ -13,19 +13,15 @@
 namespace Sctr\Greenrope\Api\Request\Event;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("GetEventsRequest")
  */
-class GetEventsRequest
+class GetEventsRequest extends GreenropeRequest
 {
     /**
      * @Serializer\XmlAttributeMap()
      */
-    private $query;
-
-    public function __construct(array $query = [])
-    {
-        $this->query = $query;
-    }
+    protected $query;
 }

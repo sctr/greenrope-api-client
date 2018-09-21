@@ -13,11 +13,12 @@
 namespace Sctr\Greenrope\Api\Request\Event;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("AddEventsRequest")
  */
-class AddEventsRequest
+class AddEventsRequest extends GreenropeRequest
 {
     /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Event>")
@@ -25,9 +26,4 @@ class AddEventsRequest
      * @Serializer\XmlList(entry="Event")
      */
     protected $events;
-
-    public function __construct(array $events)
-    {
-        $this->events = $events;
-    }
 }

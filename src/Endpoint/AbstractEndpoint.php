@@ -93,14 +93,6 @@ abstract class AbstractEndpoint
             );
         }
 
-//        if (is_array($responseObject->getResult())) {
-//            foreach ($responseObject->getResult() as $resultObject) {
-//                if ($resultObject->getErrorCode()) {
-//                    $apiResponse->setWarning(new Warning('An error has happened for one of the objects'));
-//                }
-//            }
-//        }
-
         $apiResponse->setResult($responseObject->getResult());
 
         return $apiResponse;
@@ -140,17 +132,6 @@ abstract class AbstractEndpoint
      */
     private function buildParametersForRequest($method, $objectName, array $parameters = [], $multipleObjects = true, $additionalNameParameters = null)
     {
-        if ($method == 'Get' || $method === 'Search' || !$multipleObjects) {
-            $objectsArray = $parameters;
-        } else {
-            $objectsArray   = [];
-            $fullObjectName = 'Sctr\Greenrope\Api\Model\\'.$objectName;
-            foreach ($parameters as $arrayParameters) {
-                $object         = new $fullObjectName($arrayParameters);
-                $objectsArray[] = $object;
-            }
-        }
-
         $requestName = 'Sctr\Greenrope\Api\Request\\'.ucfirst($objectName).'\\'.ucfirst($method).ucfirst($objectName);
 
         if ($multipleObjects) {
@@ -163,7 +144,7 @@ abstract class AbstractEndpoint
 
         $requestName .= 'Request';
 
-        $request = new $requestName($objectsArray);
+        $request = new $requestName($parameters);
 
         $xml = $this->xmlConverter->serializeObjectToXml($request);
 

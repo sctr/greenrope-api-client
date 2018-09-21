@@ -15,17 +15,31 @@ namespace Sctr\Greenrope\Api\Model;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @Serializer\XmlRoot(name="Group")
+ * @Serializer\XmlRoot("Broadcast")
  */
-class Group extends AbstractModel
+class Broadcast extends AbstractModel
 {
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
      * @Serializer\Type("integer")
-     * @Serializer\SerializedName("Group_id")
+     * @Serializer\SerializedName("Broadcast_id")
      */
     protected $id;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("string")
+     */
+    protected $status;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("string")
+     */
+    protected $subject;
 
     /**
      * @Serializer\XmlElement(cdata=false)
@@ -37,9 +51,10 @@ class Group extends AbstractModel
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("string")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("GroupID")
      */
-    protected $name;
+    protected $groupId;
 
     /**
      * @Serializer\XmlElement(cdata=false)
@@ -51,49 +66,56 @@ class Group extends AbstractModel
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Group_type")
+     * @Serializer\Type("integer")
      */
-    protected $type;
+    protected $numberOfRecipients;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
+     */
+    protected $datetimeQueued;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
+     */
+    protected $datetimeScheduledForDelivery;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
+     */
+    protected $datetimeSent;
 
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
      * @Serializer\Type("string")
      */
-    protected $emailsSentFromName;
-
-    /**
-     * @Serializer\XmlElement(cdata=false)
-     * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("string")
-     */
-    protected $emailsSentFromEmail;
-
-    /**
-     * @Serializer\XmlElement(cdata=false)
-     * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("string")
-     */
-    protected $emailPhysicalAddress;
+    protected $recipientFiltersUsed;
 
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
      * @Serializer\Type("integer")
      */
-    protected $includeLoginLink;
+    protected $numberOfClicks;
 
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
      * @Serializer\Type("integer")
      */
-    protected $totalMatchingContacts;
+    protected $numberOfReads;
 
     /**
-     * @Serializer\XmlValue(cdata=false)
-     * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
      */
-    protected $value;
+    protected $updatedTimeStamp;
 }

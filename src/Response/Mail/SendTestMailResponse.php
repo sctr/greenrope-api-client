@@ -10,18 +10,18 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Request\Contact;
+namespace Sctr\Greenrope\Api\Response\Mail;
 
 use JMS\Serializer\Annotation as Serializer;
-use Sctr\Greenrope\Api\Request\GreenropeRequest;
+use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 /**
- * @Serializer\XmlRoot("GetContactsRequest")
+ * @Serializer\XmlRoot("SendTestMailResponse")
  */
-class GetContactsRequest extends GreenropeRequest
+class SendTestMailResponse extends GreenropeResponse
 {
-    /**
-     * @Serializer\XmlAttributeMap()
-     */
-    protected $query;
+    public function getResult()
+    {
+        return $this->getSuccess();
+    }
 }

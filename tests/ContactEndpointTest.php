@@ -39,7 +39,7 @@ class ContactEndpointTest extends BaseTest
         ];
 
         /** @var ApiResponse $response */
-        $response = $this->client->contact->addContacts([$contact1]);
+        $response = $this->client->contact->addContacts(['contacts' => [$contact1]]);
 
         $this->assertTrue(is_array($response->getResult()));
 
@@ -49,7 +49,7 @@ class ContactEndpointTest extends BaseTest
     public function testGetContacts()
     {
         $searchAttributes = [
-            'account_id' => 45429,
+            'query' => ['account_id' => 45429],
         ];
 
         /** @var ApiResponse $response */
@@ -153,6 +153,25 @@ class ContactEndpointTest extends BaseTest
         ];
 
         $response = $this->client->contact->deleteUserDefinedField($newFieldParams);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testAddContactsToGroup()
+    {
+        $response = $this->client->contact->addContactsToGroup(['group_id' => 19, 'account_id' => 45429], [['query' => ['contact_id' => 6]]]);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testDeleteContactsToGroup()
+    {
+        $response = $this->client->contact->deleteContactsFromGroup([
+            'query' => ['group_id' => 19, 'account_id' => 45429],
+            'contacts' => [
+                ['query' => ['contact_id' => 6]]
+            ]
+        ]);
 
         $this->assertInstanceOf(ApiResponse::class, $response);
     }

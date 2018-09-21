@@ -50,14 +50,14 @@ class Rule extends AbstractModel
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("string")
+     * @Serializer\Type("DateTime")
      */
     protected $date;
 
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("string")
+     * @Serializer\Type("DateTime")
      */
     protected $date2;
 }

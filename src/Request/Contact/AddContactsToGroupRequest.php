@@ -16,12 +16,19 @@ use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
- * @Serializer\XmlRoot("GetContactsRequest")
+ * @Serializer\XmlRoot("AddContactsToGroupRequest")
  */
-class GetContactsRequest extends GreenropeRequest
+class AddContactsToGroupRequest extends GreenropeRequest
 {
     /**
      * @Serializer\XmlAttributeMap()
      */
     protected $query;
+
+    /**
+     * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")
+     * @Serializer\SerializedName("Contacts")
+     * @Serializer\XmlList(entry="Contact")
+     */
+    protected $contacts;
 }

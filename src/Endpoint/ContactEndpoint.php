@@ -149,4 +149,28 @@ class ContactEndpoint extends AbstractEndpoint
     {
         return $this->handleRequest('UserDefinedField', 'Delete', $editFieldParameters, false);
     }
+
+    /**
+     * @param array $parameters
+     *
+     * @return ApiResponse
+     *
+     * @throws \Exception
+     */
+    public function addContactsToGroup(array $parameters)
+    {
+        return $this->handleRequest('Contact', 'Add', $parameters, true, 'ToGroup');
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return ApiResponse
+     *
+     * @throws \Exception
+     */
+    public function deleteContactsFromGroup(array $parameters)
+    {
+        return $this->handleRequest('Contact', 'Delete', $parameters, true, 'FromGroup');
+    }
 }

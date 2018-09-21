@@ -10,18 +10,22 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Request\Contact;
+namespace Sctr\Greenrope\Api\Request\Broadcast;
 
 use JMS\Serializer\Annotation as Serializer;
-use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
- * @Serializer\XmlRoot("GetContactsRequest")
+ * @Serializer\XmlRoot("GetBroadcastStatsRequest")
  */
-class GetContactsRequest extends GreenropeRequest
+class GetBroadcastStatsRequest
 {
     /**
      * @Serializer\XmlAttributeMap()
      */
     protected $query;
+
+    public function __construct(array $query = [])
+    {
+        $this->query = $query;
+    }
 }

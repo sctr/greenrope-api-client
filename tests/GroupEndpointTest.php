@@ -12,7 +12,7 @@
 
 namespace Sctr\Greenrope\Api\Tests;
 
-use Sctr\Greenrope\Api\Model\Group;
+use Sctr\Greenrope\Api\ApiResponse;
 
 class GroupEndpointTest extends BaseTest
 {
@@ -20,11 +20,13 @@ class GroupEndpointTest extends BaseTest
     {
         $groupParameters = [
             'query' => ['account_id' => 45429],
-            'name'  => $this->faker->name,
+            'name'  => 'Test group 2',
             'type'  => 'Hidden',
         ];
 
         $response = $this->client->group->create($groupParameters);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
     }
 
     /**
@@ -51,10 +53,37 @@ class GroupEndpointTest extends BaseTest
     public function testGetGroups()
     {
         $groupParameters = [
-            'account_id' => 45429,
-            'group_id'   => 14,
+            'query' => ['account_id' => 45429]
         ];
 
         $response = $this->client->group->getGroups($groupParameters);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testEditGroups()
+    {
+        $parametersGroup1 = [
+            'query' => ['group_id' => 19, 'account_id' => 45429],
+            'name' => 'Test group Edited'
+        ];
+
+        $response = $this->client->group->editGroups(['groups' => [$parametersGroup1]]);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testDeleteGroups()
+    {
+        $groupsArray = [
+            'groups' => [
+                ['query' => ['group_name' => "Test group", 'account_id' => 45429]],
+                ['query' => ['group_name' => "Test group 2", 'account_id' => 45429]]
+            ]
+        ];
+
+        $response = $this->client->group->deleteGroups($groupsArray);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
     }
 }

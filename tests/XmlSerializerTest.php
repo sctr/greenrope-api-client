@@ -14,14 +14,16 @@ namespace Sctr\Greenrope\Api\Tests;
 
 use Sctr\Greenrope\Api\Model\Contact;
 use Sctr\Greenrope\Api\Request\Contact\AddContactsRequest;
+use Sctr\Greenrope\Api\Request\Contact\AddContactsToGroupRequest;
 use Sctr\Greenrope\Api\Request\Contact\SearchContactsRequest;
+use Sctr\Greenrope\Api\Request\Mail\SendTestMailRequest;
 use Sctr\Greenrope\Api\Service\XmlSerializer;
 
 class XmlSerializerTest extends BaseTest
 {
     public function testSerializerSerialize()
     {
-        $contact = new Contact([
+        $contact = [
             'query'     => ['account_id' => 45429],
             'id'        => 1,
             'firstName' => 'Test',
@@ -40,9 +42,9 @@ class XmlSerializerTest extends BaseTest
             'userDefinedFields' => [
                 ['query' => ['fieldname' => 'test fieldname'], 'value' => 'Dog'],
             ],
-        ]);
+        ];
 
-        $contacts = new AddContactsRequest([$contact]);
+        $contacts = new AddContactsRequest(['contacts' => [$contact]]);
 
         $serializer        = new XmlSerializer();
         $serializedContact = $serializer->serializeObjectToXml($contacts);
@@ -94,5 +96,43 @@ class XmlSerializerTest extends BaseTest
         $this->assertTrue(strpos('<\Rule>', $serializedRequest) >= 0);
         $this->assertTrue(strpos('<Field>', $serializedRequest) >= 0);
         $this->assertTrue(strpos('<\Operator>', $serializedRequest) >= 0);
+    }
+
+    public function testSerializeSendTestMail()
+    {
+        $requestdata = [
+            'fromName' => 'Test',
+            'fromEmail' => 'test@test.com',
+            'recipients' => [
+                'bla', 'bla'
+            ]
+        ];
+
+        $request = new SendTestMailRequest($requestdata);
+
+        $serializer = new XmlSerializer();
+        $serializedRequest = $serializer->serializeObjectToXml($request);
+
+        $this->assertStringStartsWith("<SendTestMailRequest>", $serializedRequest);
+        $this->assertStringEndsWith("</SendTestMailRequest>\n", $serializedRequest);
+        $this->assertTrue(strpos('</Recipients>', $serializedRequest) >= 0);
+        $this->assertTrue(strpos('<Recipient>bla</Recipient>', $serializedRequest) >= 0);
+    }
+
+    public function testSerializeAddContactsToGroupRequest()
+    {
+        $requestdata = [
+            'query' => ['account_id' => 45429],
+            'contacts' => [
+                ['query' => ['contact_id' => 6]]
+            ]
+        ];
+
+        $request = new AddContactsToGroupRequest($requestdata);
+
+        $serializer = new XmlSerializer();
+        $serializedRequest = $serializer->serializeObjectToXml($request);
+
+        $this->assertStringStartsWith("<AddContactsToGroupRequest", $serializedRequest);
     }
 }

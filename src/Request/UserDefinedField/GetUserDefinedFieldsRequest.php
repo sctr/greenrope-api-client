@@ -13,19 +13,15 @@
 namespace Sctr\Greenrope\Api\Request\UserDefinedField;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("GetUserDefinedFieldsRequest")
  */
-class GetUserDefinedFieldsRequest
+class GetUserDefinedFieldsRequest extends GreenropeRequest
 {
     /**
      * @Serializer\XmlAttributeMap()
      */
-    private $query;
-
-    public function __construct(array $query = [])
-    {
-        $this->query = $query;
-    }
+    protected $query;
 }

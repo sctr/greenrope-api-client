@@ -10,15 +10,15 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Request\Contact;
+namespace Sctr\Greenrope\Api\Response\Contact;
 
 use JMS\Serializer\Annotation as Serializer;
-use Sctr\Greenrope\Api\Request\GreenropeRequest;
+use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 /**
- * @Serializer\XmlRoot("AddContactsRequest")
+ * @Serializer\XmlRoot("AddContactsToGroupResponse")
  */
-class AddContactsRequest extends GreenropeRequest
+class AddContactsToGroupResponse extends GreenropeResponse
 {
     /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")
@@ -26,4 +26,13 @@ class AddContactsRequest extends GreenropeRequest
      * @Serializer\XmlList(entry="Contact")
      */
     protected $contacts;
+
+    public function getResult()
+    {
+        if ($this->getErrorCode()) {
+            return null;
+        }
+
+        return $this->contacts;
+    }
 }

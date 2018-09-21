@@ -39,4 +39,28 @@ class GroupEndpoint extends AbstractEndpoint
     {
         return $this->handleRequest('Group', 'Get', $searchAttributes);
     }
+
+    /**
+     * @param array $parameters
+     *
+     * @throws \Exception
+     * @return mixed
+     */
+    public function editGroups(array $parameters)
+    {
+        return $this->handleRequest('Group', 'Edit', $parameters);
+    }
+
+
+    /**
+     * @param array $parameters
+     *
+     * @throws \Exception
+     *\n
+     * @return mixed
+     */
+    public function deleteGroups(array $parameters)
+    {
+        return $this->handleRequest('Group', 'Delete', $parameters);
+    }
 }

@@ -80,7 +80,7 @@ class UserDefinedField extends AbstractModel
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("string")
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
      */
     protected $updatedTimeStamp;
 

@@ -143,7 +143,7 @@ class Contact extends AbstractModel
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("integer")
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
      */
     protected $updatedTimeStamp;
 
