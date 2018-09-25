@@ -20,6 +20,12 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
  */
 class QueueMailRequest extends GreenropeRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id',
+        'group_name',
+        'group_id'
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */

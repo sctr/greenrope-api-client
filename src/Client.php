@@ -18,6 +18,7 @@ use GuzzleHttp\Client as BaseClient;
  * @property-read \Sctr\Greenrope\Api\Endpoint\ContactEndpoint $contact
  * @property-read \Sctr\Greenrope\Api\Endpoint\GroupEndpoint $group
  * @property-read \Sctr\Greenrope\Api\Endpoint\BroadcastEndpoint $broadcast
+ * @property-read \Sctr\Greenrope\Api\Endpoint\EventEndpoint $event
  */
 class Client extends BaseClient
 {

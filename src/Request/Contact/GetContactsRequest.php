@@ -20,6 +20,27 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
  */
 class GetContactsRequest extends GreenropeRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id',
+        'contact_id',
+        'group_id',
+        'firstname',
+        'lastname',
+        'email',
+        'get_all',
+        'Unsubscribed',
+        'Unsubscribed_startdate',
+        'Unsubscribed_enddate',
+        'Bounced',
+        'Bounced_startdate',
+        'Bounced_enddate',
+        'updated_timestamp',
+        'start_lastname',
+        'end_lastname',
+        'do_lead_scoring',
+        'search'
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */

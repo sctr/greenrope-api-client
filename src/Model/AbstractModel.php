@@ -59,7 +59,10 @@ abstract class AbstractModel
         foreach ($content as $key => $value) {
             $key = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $key))));
             if (property_exists($this, $key)) {
-                if ($metadata->propertyMetadata[$key]->xmlCollection === true && is_array($value)) {
+                if ($metadata->propertyMetadata[$key]->xmlCollection === true
+                    && is_array($value)
+                    && !empty($metadata->propertyMetadata[$key]->type['params'])
+                ) {
                     $class = 'Sctr\\Greenrope\\Api\\Model\\'.$metadata->propertyMetadata[$key]->xmlEntryName;
                     foreach ($value as $newClassParams) {
                         $newObject      = new $class($newClassParams);

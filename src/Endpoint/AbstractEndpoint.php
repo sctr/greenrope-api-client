@@ -116,8 +116,8 @@ abstract class AbstractEndpoint
         /** @var ApiAuthTokenResponse $response */
         $response = $this->xmlConverter->deserializeXml($response->getBody(), ApiAuthTokenResponse::class);
 
-        if ($response->getSuccess() && !empty($response->getResult())) {
-            $this->token = $response->getResult();
+        if (!empty($token = $response->getResult())) {
+            $this->token = $token;
         } else {
             throw new \Exception(sprintf('Authentication error: %s', $response->getErrorText()));
         }

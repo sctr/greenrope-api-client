@@ -23,6 +23,11 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
  */
 class SearchContactsRequest extends GreenropeRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id',
+        'group_id'
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */

@@ -59,16 +59,14 @@ class GetBroadcastStatsResponse extends GreenropeResponse
 
     public function getResult()
     {
-        if ($this->getErrorCode()) {
-            return null;
+        if ($this->getSuccess()) {
+            return [
+                'id' => $this->id,
+                'accountNumber' => $this->accountNumber,
+                'journeyId' => $this->journeyId,
+                'journeyName' => $this->journeyName,
+                'contacts' => $this->contacts
+            ];
         }
-
-        return [
-            'id' => $this->id,
-            'accountNumber' => $this->accountNumber,
-            'journeyId' => $this->journeyId,
-            'journeyName' => $this->journeyName,
-            'contacts' => $this->contacts
-        ];
     }
 }

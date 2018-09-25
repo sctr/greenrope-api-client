@@ -150,29 +150,27 @@ class GetBroadcastBodyResponse extends GreenropeResponse
 
     public function getResult()
     {
-        if ($this->getErrorCode()) {
-            return null;
+        if ($this->getSuccess()) {
+            return [
+                'success' => $this->getSuccess(),
+                'accountNumber' => $this->accountNumber,
+                'groupId' => $this->groupId,
+                'groupName' => $this->groupName,
+                'broadcastId' => $this->broadcastId,
+                'fromName' => $this->fromName,
+                'fromEmail' => $this->fromEmail,
+                'contactId' => $this->contactId,
+                'contactFirstname' => $this->contactFirstname,
+                'contactLastname' => $this->contactLastname,
+                'contactEmail' => $this->contactEmail,
+                'subject' => $this->subject,
+                'action' => $this->action,
+                'datetimeQueued' =>$this->datetimeQueued,
+                'datetimeSent' => $this->datetimeSent,
+                'messageHtml' => $this->messageHtml,
+                'messageText' => $this->messageText,
+                'rfc822' => $this->rfc822
+            ];
         }
-
-        return [
-            'success' => $this->getSuccess(),
-            'accountNumber' => $this->accountNumber,
-            'groupId' => $this->groupId,
-            'groupName' => $this->groupName,
-            'broadcastId' => $this->broadcastId,
-            'fromName' => $this->fromName,
-            'fromEmail' => $this->fromEmail,
-            'contactId' => $this->contactId,
-            'contactFirstname' => $this->contactFirstname,
-            'contactLastname' => $this->contactLastname,
-            'contactEmail' => $this->contactEmail,
-            'subject' => $this->subject,
-            'action' => $this->action,
-            'datetimeQueued' =>$this->datetimeQueued,
-            'datetimeSent' => $this->datetimeSent,
-            'messageHtml' => $this->messageHtml,
-            'messageText' => $this->messageText,
-            'rfc822' => $this->rfc822
-        ];
     }
 }

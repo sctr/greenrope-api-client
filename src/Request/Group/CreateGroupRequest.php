@@ -26,6 +26,10 @@ class CreateGroupRequest extends GreenropeRequest
         'Hidden'  => 'Hidden',
     ];
 
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id'
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */

@@ -16,7 +16,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use JMS\Serializer\Metadata\Driver\AnnotationDriver;
 use Metadata\MetadataFactory;
 
-class GreenropeRequest
+abstract class GreenropeRequest
 {
     public function __construct(array $content = [])
     {
@@ -26,6 +26,14 @@ class GreenropeRequest
         foreach ($content as $key => $value) {
             $key = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $key))));
             if (property_exists($this, $key)) {
+                if ($key === 'query') {
+                    foreach ($value as $queryKey => $queryParameter) {
+                        if (array_search($queryKey, $this::ALLOWED_QUERY_PARAMS, true) === false) {
+                            throw new \Exception('Invalid query parameter sent.');
+                        }
+                    }
+                }
+
                 $keyMetadata = $metadata->propertyMetadata[$key];
                 if ($keyMetadata->xmlCollection === true
                     && $keyMetadata->type['name'] === 'array'

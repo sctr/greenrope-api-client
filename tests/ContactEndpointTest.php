@@ -91,7 +91,7 @@ class ContactEndpointTest extends BaseTest
 
     public function testGetUserDefinedFields()
     {
-        $query = ['account_id' => 45429];
+        $query = ['query' => ['account_id' => 45429]];
 
         $response = $this->client->contact->getUserDefinedFields($query);
 

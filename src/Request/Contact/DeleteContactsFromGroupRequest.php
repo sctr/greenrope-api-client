@@ -21,11 +21,6 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
 class DeleteContactsFromGroupRequest extends GreenropeRequest
 {
     /**
-     * @Serializer\XmlAttributeMap()
-     */
-    protected $query;
-
-    /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")
      * @Serializer\SerializedName("Contacts")
      * @Serializer\XmlList(entry="Contact")

@@ -35,13 +35,11 @@ class SearchContactsResponse extends GreenropeResponse
 
     public function getResult()
     {
-        if ($this->getErrorCode()) {
-            return;
+        if ($this->getSuccess()) {
+            return [
+                'contacts' => $this->contacts,
+                'total'    => $this->total,
+            ];
         }
-
-        return [
-            'contacts' => $this->contacts,
-            'total'    => $this->total,
-        ];
     }
 }

@@ -16,6 +16,7 @@ use Sctr\Greenrope\Api\Model\Contact;
 use Sctr\Greenrope\Api\Request\Contact\AddContactsRequest;
 use Sctr\Greenrope\Api\Request\Contact\AddContactsToGroupRequest;
 use Sctr\Greenrope\Api\Request\Contact\SearchContactsRequest;
+use Sctr\Greenrope\Api\Request\Event\GetEventsRequest;
 use Sctr\Greenrope\Api\Request\Mail\SendTestMailRequest;
 use Sctr\Greenrope\Api\Service\XmlSerializer;
 
@@ -134,5 +135,21 @@ class XmlSerializerTest extends BaseTest
         $serializedRequest = $serializer->serializeObjectToXml($request);
 
         $this->assertStringStartsWith("<AddContactsToGroupRequest", $serializedRequest);
+    }
+
+    public function testSerializeGetEventsRequest()
+    {
+        $requestdata = [
+            'query' => ['account_id' => 45429],
+            'groupId' => 2,
+            'showAttendees' => 'Y'
+        ];
+
+        $request = new GetEventsRequest($requestdata);
+
+        $serializer = new XmlSerializer();
+        $serializedRequest = $serializer->serializeObjectToXml($request);
+
+        $this->assertStringStartsWith("<GetEventsRequest", $serializedRequest);
     }
 }

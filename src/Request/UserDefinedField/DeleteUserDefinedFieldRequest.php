@@ -20,6 +20,10 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
  */
 class DeleteUserDefinedFieldRequest extends GreenropeRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id'
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */

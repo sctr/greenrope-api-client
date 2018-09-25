@@ -19,6 +19,16 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class GetBroadcastsRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id',
+        'Group_id',
+        'Contact_id',
+        'Datetime_sent',
+        'updated_timestamp',
+        'message_type',
+        'get_all'
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */

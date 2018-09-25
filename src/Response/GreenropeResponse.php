@@ -16,7 +16,9 @@ use JMS\Serializer\Annotation as Serializer;
 
 abstract class GreenropeResponse
 {
-    public const ERROR_RESPONSE = 'Error';
+    public const ERROR_RESPONSE   = 'Error';
+    public const SUCCESS_RESPONSE = 'Success';
+    public const FAILURE_RESPONSE = 'Failure';
 
     /**
      * @Serializer\Type("string")
@@ -25,23 +27,49 @@ abstract class GreenropeResponse
     private $success;
 
     /**
+     * @Serializer\Type("string")
+     */
+    private $response;
+
+    /**
      * @Serializer\Type("integer")
-     * @Serializer\SerializedName("ErrorCode")
      */
     private $errorCode;
 
     /**
      * @Serializer\Type("string")
-     * @Serializer\SerializedName("ErrorText")
      */
     private $errorText;
+
+    /**
+     * @Serializer\Type("string")
+     * @Serializer\XmlAttribute()
+     */
+    private $message;
+
+    /**
+     * @Serializer\Type("string")
+     * @Serializer\XmlAttribute()
+     */
+    private $result;
 
     /**
      * @return string
      */
     public function getSuccess()
     {
-        return $this->success !== self::ERROR_RESPONSE ? true : false;
+        $success = false;
+
+        if (empty($this->response) && empty($this->success) && empty($this->result)) {
+            $success = true;
+        } elseif ($this->response === self::SUCCESS_RESPONSE
+            || $this->success === self::SUCCESS_RESPONSE
+            || $this->result === self::SUCCESS_RESPONSE
+        ) {
+            $success = true;
+        }
+
+        return $success;
     }
 
     /**
