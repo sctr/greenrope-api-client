@@ -13,7 +13,6 @@
 namespace Sctr\Greenrope\Api\DependencyInjection;
 
 use Sctr\Greenrope\Api\Client;
-use Sctr\Greenrope\Api\DependencyInjection\Configuration;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
