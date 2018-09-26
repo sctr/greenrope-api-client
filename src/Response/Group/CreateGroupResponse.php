@@ -30,12 +30,10 @@ class CreateGroupResponse extends GreenropeResponse
 
     public function getResult()
     {
-        if ($this->getErrorCode()) {
-            return;
+        if ($this->getSuccess()) {
+            return [
+                'id' => $this->id,
+            ];
         }
-
-        return [
-            'id' => $this->id,
-        ];
     }
 }

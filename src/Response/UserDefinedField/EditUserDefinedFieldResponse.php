@@ -44,15 +44,13 @@ class EditUserDefinedFieldResponse extends GreenropeResponse
 
     public function getResult()
     {
-        if ($this->getErrorCode()) {
-            return;
+        if ($this->getSuccess()) {
+            return [
+                'success'          => $this->getSuccess(),
+                'userFieldId'      => $this->userFieldId,
+                'accountNumber'    => $this->accountNumber,
+                'updatedTimeStamp' => $this->updatedTimeStamp,
+            ];
         }
-
-        return [
-            'success'          => $this->getSuccess(),
-            'userFieldId'      => $this->userFieldId,
-            'accountNumber'    => $this->accountNumber,
-            'updatedTimeStamp' => $this->updatedTimeStamp,
-        ];
     }
 }

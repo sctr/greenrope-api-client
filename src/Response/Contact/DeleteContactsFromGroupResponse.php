@@ -10,25 +10,25 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Response\Group;
+namespace Sctr\Greenrope\Api\Response\Contact;
 
 use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 /**
- * @Serializer\XmlRoot("DeleteGroupsResponse")
+ * @Serializer\XmlRoot("DeleteContactsFromGroupResponse")
  */
-class DeleteGroupsResponse extends GreenropeResponse
+class DeleteContactsFromGroupResponse extends GreenropeResponse
 {
     /**
-     * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Group>")
-     * @Serializer\SerializedName("Groups")
-     * @Serializer\XmlList(entry="Group")
+     * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")
+     * @Serializer\SerializedName("Contacts")
+     * @Serializer\XmlList(entry="Contact")
      */
-    protected $groups;
+    protected $contacts;
 
     public function getResult()
     {
-        return $this->groups;
+        return $this->contacts;
     }
 }

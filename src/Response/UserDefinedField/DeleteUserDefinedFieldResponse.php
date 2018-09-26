@@ -18,10 +18,6 @@ class DeleteUserDefinedFieldResponse extends GreenropeResponse
 {
     public function getResult()
     {
-        if ($this->getErrorCode()) {
-            return;
-        }
-
         return $this->getSuccess();
     }
 }

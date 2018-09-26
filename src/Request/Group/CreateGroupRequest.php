@@ -13,16 +13,21 @@
 namespace Sctr\Greenrope\Api\Request\Group;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("CreateGroupRequest")
  */
-class CreateGroupRequest
+class CreateGroupRequest extends GreenropeRequest
 {
     private const ALLOWED_TYPES = [
         'Public'  => 'Public',
         'Private' => 'Private',
         'Hidden'  => 'Hidden',
+    ];
+
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id',
     ];
 
     /**
@@ -69,25 +74,4 @@ class CreateGroupRequest
      * @Serializer\SerializedName("EmailPhysicalAddress")
      */
     protected $emailPhysicalAddress;
-
-    /**
-     * CreateGroupRequest constructor.
-     *
-     * @param array $content
-     *
-     * @throws \Exception
-     */
-    public function __construct(array $content = [])
-    {
-        foreach ($content as $key => $value) {
-            $key = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $key))));
-            if (property_exists($this, $key)) {
-                if ($key === 'groupType' && !array_key_exists($value, self::ALLOWED_TYPES)) {
-                    throw new \Exception(sprintf('Invalid group type provided: %s', $value));
-                }
-
-                $this->{$key} = $value;
-            }
-        }
-    }
 }

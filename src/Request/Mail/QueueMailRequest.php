@@ -10,18 +10,19 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Request\UserDefinedField;
+namespace Sctr\Greenrope\Api\Request\Mail;
 
 use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
- * @Serializer\XmlRoot("AddUserDefinedFieldRequest")
+ * @Serializer\XmlRoot("QueueMailRequest")
  */
-class AddUserDefinedFieldRequest extends GreenropeRequest
+class QueueMailRequest extends GreenropeRequest
 {
     const ALLOWED_QUERY_PARAMS = [
         'account_id',
+        'group_name',
         'group_id',
     ];
 
@@ -34,27 +35,37 @@ class AddUserDefinedFieldRequest extends GreenropeRequest
      * @Serializer\SkipWhenEmpty()
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\Type("string")
+     * @Serializer\SerializedName("From_name")
      */
-    protected $fieldName;
+    protected $fromName;
+
+    /**
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("From_email")
+     */
+    protected $fromEmail;
 
     /**
      * @Serializer\SkipWhenEmpty()
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\Type("string")
      */
-    protected $fieldType;
+    protected $subject;
 
     /**
      * @Serializer\SkipWhenEmpty()
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\Type("string")
      */
-    protected $possibleValues;
+    protected $message;
 
     /**
      * @Serializer\SkipWhenEmpty()
      * @Serializer\XmlElement(cdata=false)
-     * @Serializer\Type("string")
+     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
+     * @Serializer\SerializedName("Delivery_date_time")
      */
-    protected $contactEditable;
+    protected $deliveryDatetime;
 }

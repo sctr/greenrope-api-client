@@ -10,18 +10,21 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Request\UserDefinedField;
+namespace Sctr\Greenrope\Api\Request\Broadcast;
 
 use JMS\Serializer\Annotation as Serializer;
-use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
- * @Serializer\XmlRoot("DeleteUserDefinedFieldRequest")
+ * @Serializer\XmlRoot("GetBroadcastBodyRequest")
  */
-class DeleteUserDefinedFieldRequest extends GreenropeRequest
+class GetBroadcastBodyRequest
 {
     const ALLOWED_QUERY_PARAMS = [
         'account_id',
+        'broadcast_id',
+        'group_id',
+        'include_rfc822',
+        'contact_id',
     ];
 
     /**
@@ -29,10 +32,8 @@ class DeleteUserDefinedFieldRequest extends GreenropeRequest
      */
     protected $query;
 
-    /**
-     * @Serializer\SkipWhenEmpty()
-     * @Serializer\XmlElement(cdata=false)
-     * @Serializer\Type("string")
-     */
-    protected $fieldName;
+    public function __construct(array $query = [])
+    {
+        $this->query = $query;
+    }
 }

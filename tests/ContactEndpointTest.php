@@ -25,11 +25,11 @@ class ContactEndpointTest extends BaseTest
     public function testAddContactsRequest()
     {
         $contact1 = [
-            'query'     => ['account_id' => 45429],
-            'firstName' => 'Test',
-            'lastName'  => 'Test',
-            'email'     => 'testEmail@test.com',
-            'groups'    => [
+            'query'             => ['account_id' => 45429],
+            'firstName'         => 'Test',
+            'lastName'          => 'Test',
+            'email'             => 'testEmail@test.com',
+            'groups'            => [
                 ['id' => 16, 'name' => 'Test group'],
             ],
             'userDefinedFields' => [
@@ -39,7 +39,7 @@ class ContactEndpointTest extends BaseTest
         ];
 
         /** @var ApiResponse $response */
-        $response = $this->client->contact->addContacts([$contact1]);
+        $response = $this->client->contact->addContacts(['contacts' => [$contact1]]);
 
         $this->assertTrue(is_array($response->getResult()));
 
@@ -49,7 +49,7 @@ class ContactEndpointTest extends BaseTest
     public function testGetContacts()
     {
         $searchAttributes = [
-            'account_id' => 45429,
+            'query' => ['account_id' => 45429],
         ];
 
         /** @var ApiResponse $response */
@@ -63,7 +63,7 @@ class ContactEndpointTest extends BaseTest
     public function testEditContacts()
     {
         $editContact1 = [
-            'query' => [
+            'query'     => [
                 'account_id' => 45429,
                 'contact_id' => 27,
             ],
@@ -91,7 +91,7 @@ class ContactEndpointTest extends BaseTest
 
     public function testGetUserDefinedFields()
     {
-        $query = ['account_id' => 45429];
+        $query = ['query' => ['account_id' => 45429]];
 
         $response = $this->client->contact->getUserDefinedFields($query);
 
@@ -136,7 +136,10 @@ class ContactEndpointTest extends BaseTest
     public function testEditUserDefinedField()
     {
         $newFieldParams = [
-            'query'     => ['group_id' => 5, 'account_id' => 45429],
+            'query'     => [
+                'group_id'   => 5,
+                'account_id' => 45429,
+            ],
             'fieldName' => 'Test field',
         ];
 
@@ -148,11 +151,43 @@ class ContactEndpointTest extends BaseTest
     public function testDeleteUserDefinedField()
     {
         $newFieldParams = [
-            'query'     => ['group_id' => 5, 'account_id' => 45429],
+            'query'     => [
+                'group_id'   => 5,
+                'account_id' => 45429,
+            ],
             'fieldName' => 'Test field',
         ];
 
         $response = $this->client->contact->deleteUserDefinedField($newFieldParams);
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testAddContactsToGroup()
+    {
+        $response = $this->client->contact->addContactsToGroup(
+            [
+                'query'    => [
+                    'group_id'   => 19,
+                    'account_id' => 45429,
+                ],
+                'contacts' => [
+                    ['query' => ['contact_id' => 6]],
+                ],
+            ]
+        );
+
+        $this->assertInstanceOf(ApiResponse::class, $response);
+    }
+
+    public function testDeleteContactsToGroup()
+    {
+        $response = $this->client->contact->deleteContactsFromGroup([
+            'query'    => ['group_id' => 19, 'account_id' => 45429],
+            'contacts' => [
+                ['query' => ['contact_id' => 6]],
+            ],
+        ]);
 
         $this->assertInstanceOf(ApiResponse::class, $response);
     }

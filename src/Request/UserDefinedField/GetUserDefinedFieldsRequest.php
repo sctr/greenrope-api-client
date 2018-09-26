@@ -13,19 +13,20 @@
 namespace Sctr\Greenrope\Api\Request\UserDefinedField;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("GetUserDefinedFieldsRequest")
  */
-class GetUserDefinedFieldsRequest
+class GetUserDefinedFieldsRequest extends GreenropeRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id',
+        'updated_timestamp',
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */
-    private $query;
-
-    public function __construct(array $query = [])
-    {
-        $this->query = $query;
-    }
+    protected $query;
 }

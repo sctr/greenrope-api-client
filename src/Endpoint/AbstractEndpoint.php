@@ -14,7 +14,6 @@ namespace Sctr\Greenrope\Api\Endpoint;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use PHPUnit\Framework\Warning;
 use Sctr\Greenrope\Api\ApiResponse;
 use Sctr\Greenrope\Api\Response\ApiAuthTokenResponse;
 use Sctr\Greenrope\Api\Response\GreenropeResponse;
@@ -93,14 +92,6 @@ abstract class AbstractEndpoint
             );
         }
 
-//        if (is_array($responseObject->getResult())) {
-//            foreach ($responseObject->getResult() as $resultObject) {
-//                if ($resultObject->getErrorCode()) {
-//                    $apiResponse->setWarning(new Warning('An error has happened for one of the objects'));
-//                }
-//            }
-//        }
-
         $apiResponse->setResult($responseObject->getResult());
 
         return $apiResponse;
@@ -124,8 +115,8 @@ abstract class AbstractEndpoint
         /** @var ApiAuthTokenResponse $response */
         $response = $this->xmlConverter->deserializeXml($response->getBody(), ApiAuthTokenResponse::class);
 
-        if ($response->getSuccess() && !empty($response->getResult())) {
-            $this->token = $response->getResult();
+        if (!empty($token = $response->getResult())) {
+            $this->token = $token;
         } else {
             throw new \Exception(sprintf('Authentication error: %s', $response->getErrorText()));
         }
@@ -140,17 +131,6 @@ abstract class AbstractEndpoint
      */
     private function buildParametersForRequest($method, $objectName, array $parameters = [], $multipleObjects = true, $additionalNameParameters = null)
     {
-        if ($method == 'Get' || $method === 'Search' || !$multipleObjects) {
-            $objectsArray = $parameters;
-        } else {
-            $objectsArray   = [];
-            $fullObjectName = 'Sctr\Greenrope\Api\Model\\'.$objectName;
-            foreach ($parameters as $arrayParameters) {
-                $object         = new $fullObjectName($arrayParameters);
-                $objectsArray[] = $object;
-            }
-        }
-
         $requestName = 'Sctr\Greenrope\Api\Request\\'.ucfirst($objectName).'\\'.ucfirst($method).ucfirst($objectName);
 
         if ($multipleObjects) {
@@ -163,7 +143,7 @@ abstract class AbstractEndpoint
 
         $requestName .= 'Request';
 
-        $request = new $requestName($objectsArray);
+        $request = new $requestName($parameters);
 
         $xml = $this->xmlConverter->serializeObjectToXml($request);
 

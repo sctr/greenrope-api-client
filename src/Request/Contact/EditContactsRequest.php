@@ -13,11 +13,12 @@
 namespace Sctr\Greenrope\Api\Request\Contact;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("EditContactsRequest")
  */
-class EditContactsRequest
+class EditContactsRequest extends GreenropeRequest
 {
     /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")
@@ -25,9 +26,4 @@ class EditContactsRequest
      * @Serializer\XmlList(entry="Contact")
      */
     protected $contacts;
-
-    public function __construct(array $contacts)
-    {
-        $this->contacts = $contacts;
-    }
 }

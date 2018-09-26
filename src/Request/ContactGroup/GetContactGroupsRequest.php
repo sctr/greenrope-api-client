@@ -13,19 +13,23 @@
 namespace Sctr\Greenrope\Api\Request\ContactGroup;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("GetContactGroupsRequest")
  */
-class GetContactGroupsRequest
+class GetContactGroupsRequest extends GreenropeRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id',
+        'contact_id',
+        'firstname',
+        'lastname',
+        'email',
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */
-    private $query;
-
-    public function __construct(array $query = [])
-    {
-        $this->query = $query;
-    }
+    protected $query;
 }

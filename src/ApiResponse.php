@@ -13,7 +13,6 @@
 namespace Sctr\Greenrope\Api;
 
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\Warning;
 use Sctr\Greenrope\Api\Model\AbstractModel;
 
 class ApiResponse
@@ -34,9 +33,6 @@ class ApiResponse
      * @var AbstractModel|array|mixed
      */
     private $result;
-
-    /** @var Warning */
-    private $warning;
 
     public function getRequest()
     {
@@ -113,21 +109,5 @@ class ApiResponse
         $this->result = $result;
 
         return $this;
-    }
-
-    /**
-     * @return Warning
-     */
-    public function getWarning()
-    {
-        return $this->warning;
-    }
-
-    /**
-     * @param Warning $warning
-     */
-    public function setWarning(Warning $warning)
-    {
-        $this->warning = $warning;
     }
 }

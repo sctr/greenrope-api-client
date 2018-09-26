@@ -29,10 +29,6 @@ class GetBroadcastsResponse extends GreenropeResponse
 
     public function getResult()
     {
-        if ($this->getErrorCode()) {
-            return;
-        }
-
         return $this->broadcasts;
     }
 }

@@ -13,11 +13,12 @@
 namespace Sctr\Greenrope\Api\Request\Group;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("EditGroupsRequest")
  */
-class EditGroupsRequest
+class EditGroupsRequest extends GreenropeRequest
 {
     /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Group>")
@@ -25,9 +26,4 @@ class EditGroupsRequest
      * @Serializer\XmlList(entry="Group")
      */
     protected $groups;
-
-    public function __construct(array $groups)
-    {
-        $this->groups = $groups;
-    }
 }

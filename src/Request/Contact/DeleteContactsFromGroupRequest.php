@@ -16,9 +16,9 @@ use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
- * @Serializer\XmlRoot("AddContactsRequest")
+ * @Serializer\XmlRoot("DeleteContactsFromGroupRequest")
  */
-class AddContactsRequest extends GreenropeRequest
+class DeleteContactsFromGroupRequest extends GreenropeRequest
 {
     /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")

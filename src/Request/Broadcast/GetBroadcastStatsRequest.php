@@ -10,29 +10,25 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Request\UserDefinedField;
+namespace Sctr\Greenrope\Api\Request\Broadcast;
 
 use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
- * @Serializer\XmlRoot("DeleteUserDefinedFieldRequest")
+ * @Serializer\XmlRoot("GetBroadcastStatsRequest")
  */
-class DeleteUserDefinedFieldRequest extends GreenropeRequest
+class GetBroadcastStatsRequest extends GreenropeRequest
 {
     const ALLOWED_QUERY_PARAMS = [
         'account_id',
+        'broadcast_id',
+        'order_by',
+        'limit',
+        'message_type',
     ];
-
     /**
      * @Serializer\XmlAttributeMap()
      */
     protected $query;
-
-    /**
-     * @Serializer\SkipWhenEmpty()
-     * @Serializer\XmlElement(cdata=false)
-     * @Serializer\Type("string")
-     */
-    protected $fieldName;
 }

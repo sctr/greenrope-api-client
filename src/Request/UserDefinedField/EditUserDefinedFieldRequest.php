@@ -13,12 +13,18 @@
 namespace Sctr\Greenrope\Api\Request\UserDefinedField;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("EditUserDefinedFieldRequest")
  */
-class EditUserDefinedFieldRequest
+class EditUserDefinedFieldRequest extends GreenropeRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'account_id',
+        'group_id',
+    ];
+
     /**
      * @Serializer\XmlAttributeMap()
      */
@@ -51,14 +57,4 @@ class EditUserDefinedFieldRequest
      * @Serializer\Type("string")
      */
     protected $contactEditable;
-
-    public function __construct(array $content = [])
-    {
-        foreach ($content as $key => $value) {
-            $key = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $key))));
-            if (property_exists($this, $key)) {
-                $this->{$key} = $value;
-            }
-        }
-    }
 }
