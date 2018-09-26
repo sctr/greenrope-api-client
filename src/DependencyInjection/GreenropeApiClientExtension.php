@@ -38,8 +38,7 @@ class GreenropeApiClientExtension extends Extension
         $config        = $this->processConfiguration($configuration, $configs);
 
         $def = new Definition(Client::class);
-        $def->setArguments($config);
-
         $container->setDefinition('Sctr\Greenrope\Api\Client', $def);
+        $def->setArgument(0, $config);
     }
 }
