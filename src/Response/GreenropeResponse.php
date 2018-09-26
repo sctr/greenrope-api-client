@@ -85,7 +85,13 @@ abstract class GreenropeResponse
      */
     public function getErrorText()
     {
-        return $this->errorText;
+        if ($this->errorText) {
+            return $this->errorText;
+        }
+
+        if ($this->result === self::FAILURE_RESPONSE && $this->message) {
+            return $this->message;
+        }
     }
 
     abstract public function getResult();

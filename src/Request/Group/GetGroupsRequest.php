@@ -23,7 +23,7 @@ class GetGroupsRequest extends GreenropeRequest
     const ALLOWED_QUERY_PARAMS = [
         'account_id',
         'group_id',
-        'group_name'
+        'group_name',
     ];
 
     /**

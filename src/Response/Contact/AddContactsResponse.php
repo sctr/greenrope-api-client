@@ -29,6 +29,6 @@ class AddContactsResponse extends GreenropeResponse
 
     public function getResult()
     {
-       return $this->contacts;
+        return $this->contacts;
     }
 }

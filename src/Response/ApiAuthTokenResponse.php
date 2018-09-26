@@ -27,6 +27,6 @@ class ApiAuthTokenResponse extends GreenropeResponse
      */
     public function getResult()
     {
-       return $this->token;
+        return $this->token;
     }
 }

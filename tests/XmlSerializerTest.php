@@ -12,7 +12,6 @@
 
 namespace Sctr\Greenrope\Api\Tests;
 
-use Sctr\Greenrope\Api\Model\Contact;
 use Sctr\Greenrope\Api\Request\Contact\AddContactsRequest;
 use Sctr\Greenrope\Api\Request\Contact\AddContactsToGroupRequest;
 use Sctr\Greenrope\Api\Request\Contact\SearchContactsRequest;
@@ -25,18 +24,18 @@ class XmlSerializerTest extends BaseTest
     public function testSerializerSerialize()
     {
         $contact = [
-            'query'     => ['account_id' => 45429],
-            'id'        => 1,
-            'firstName' => 'Test',
-            'lastName'  => 'Test',
-            'company'   => 'Company test',
-            'title'     => 'Title test',
-            'Address1'  => 'Address 1',
-            'groups'    => [
+            'query'             => ['account_id' => 45429],
+            'id'                => 1,
+            'firstName'         => 'Test',
+            'lastName'          => 'Test',
+            'company'           => 'Company test',
+            'title'             => 'Title test',
+            'Address1'          => 'Address 1',
+            'groups'            => [
                 ['id' => 1, 'name' => 'test'],
                 ['id' => 2, 'name' => 'dfd'],
             ],
-            'tags' => [
+            'tags'              => [
                 ['id' => 1, 'name' => 'test tag', 'abbreviation' => 'tt'],
                 ['id' => 1, 'name' => 'test tag', 'abbreviation' => 'tt'],
             ],
@@ -51,7 +50,7 @@ class XmlSerializerTest extends BaseTest
         $serializedContact = $serializer->serializeObjectToXml($contacts);
 
         $this->assertStringStartsWith('<AddContactsRequest>', $serializedContact);
-        $this->assertStringEndsWith("</AddContactsRequest>\n", $serializedContact);
+        $this->assertStringEndsWith('</AddContactsRequest>\n', $serializedContact);
         $this->assertTrue(strpos('<Groups>', $serializedContact) >= 0);
         $this->assertTrue(strpos('<Group>', $serializedContact) >= 0);
         $this->assertTrue(strpos('<Tags>', $serializedContact) >= 0);
@@ -70,11 +69,11 @@ class XmlSerializerTest extends BaseTest
                 'unsubscribers'   => 'Y',
                 'bouncedContacts' => 'Y',
             ],
-            'rules' => [
+            'rules'    => [
                 ['field' => 'id', 'operator' => 'contains', 'value' => 123],
                 ['field' => 'id', 'operator' => 'contains', 'value' => 123],
             ],
-            'groups' => [
+            'groups'   => [
                 ['value' => '1'],
                 ['value' => 2],
             ],
@@ -101,21 +100,19 @@ class XmlSerializerTest extends BaseTest
 
     public function testSerializeSendTestMail()
     {
-        $requestdata = [
-            'fromName' => 'Test',
-            'fromEmail' => 'test@test.com',
-            'recipients' => [
-                'bla', 'bla'
-            ]
+        $requestData = [
+            'fromName'   => 'Test',
+            'fromEmail'  => 'test@test.com',
+            'recipients' => ['bla', 'bla'],
         ];
 
-        $request = new SendTestMailRequest($requestdata);
+        $request = new SendTestMailRequest($requestData);
 
-        $serializer = new XmlSerializer();
+        $serializer        = new XmlSerializer();
         $serializedRequest = $serializer->serializeObjectToXml($request);
 
-        $this->assertStringStartsWith("<SendTestMailRequest>", $serializedRequest);
-        $this->assertStringEndsWith("</SendTestMailRequest>\n", $serializedRequest);
+        $this->assertStringStartsWith('<SendTestMailRequest>', $serializedRequest);
+        $this->assertStringEndsWith('</SendTestMailRequest>\n', $serializedRequest);
         $this->assertTrue(strpos('</Recipients>', $serializedRequest) >= 0);
         $this->assertTrue(strpos('<Recipient>bla</Recipient>', $serializedRequest) >= 0);
     }
@@ -123,33 +120,33 @@ class XmlSerializerTest extends BaseTest
     public function testSerializeAddContactsToGroupRequest()
     {
         $requestdata = [
-            'query' => ['account_id' => 45429],
+            'query'    => ['account_id' => 45429],
             'contacts' => [
-                ['query' => ['contact_id' => 6]]
-            ]
+                ['query' => ['contact_id' => 6]],
+            ],
         ];
 
         $request = new AddContactsToGroupRequest($requestdata);
 
-        $serializer = new XmlSerializer();
+        $serializer        = new XmlSerializer();
         $serializedRequest = $serializer->serializeObjectToXml($request);
 
-        $this->assertStringStartsWith("<AddContactsToGroupRequest", $serializedRequest);
+        $this->assertStringStartsWith('<AddContactsToGroupRequest', $serializedRequest);
     }
 
     public function testSerializeGetEventsRequest()
     {
         $requestdata = [
-            'query' => ['account_id' => 45429],
-            'groupId' => 2,
-            'showAttendees' => 'Y'
+            'query'         => ['account_id' => 45429],
+            'groupId'       => 2,
+            'showAttendees' => 'Y',
         ];
 
         $request = new GetEventsRequest($requestdata);
 
-        $serializer = new XmlSerializer();
+        $serializer        = new XmlSerializer();
         $serializedRequest = $serializer->serializeObjectToXml($request);
 
-        $this->assertStringStartsWith("<GetEventsRequest", $serializedRequest);
+        $this->assertStringStartsWith('<GetEventsRequest', $serializedRequest);
     }
 }

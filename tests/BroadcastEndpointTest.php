@@ -19,7 +19,9 @@ class BroadcastEndpointTest extends BaseTest
     public function testGetBroadcasts()
     {
         $searchParameters = [
-            'account_id' => 45429
+            'query' => [
+                'account_id' => 45429,
+            ],
         ];
 
         $response = $this->client->broadcast->getBroadcasts($searchParameters);
@@ -30,9 +32,11 @@ class BroadcastEndpointTest extends BaseTest
     public function testGetBroadcastStats()
     {
         $searchParameters = [
-            'account_id' => 45429,
-            "broadcast_id" => "996",
-            "message_type" => "personal_email"
+            'query' => [
+                'account_id'   => 45429,
+                'broadcast_id' => '996',
+                'message_type' => 'personal_email',
+            ],
         ];
 
         $response = $this->client->broadcast->getBroadcastStats($searchParameters);

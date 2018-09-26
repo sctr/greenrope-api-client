@@ -25,11 +25,11 @@ class ContactEndpointTest extends BaseTest
     public function testAddContactsRequest()
     {
         $contact1 = [
-            'query'     => ['account_id' => 45429],
-            'firstName' => 'Test',
-            'lastName'  => 'Test',
-            'email'     => 'testEmail@test.com',
-            'groups'    => [
+            'query'             => ['account_id' => 45429],
+            'firstName'         => 'Test',
+            'lastName'          => 'Test',
+            'email'             => 'testEmail@test.com',
+            'groups'            => [
                 ['id' => 16, 'name' => 'Test group'],
             ],
             'userDefinedFields' => [
@@ -63,7 +63,7 @@ class ContactEndpointTest extends BaseTest
     public function testEditContacts()
     {
         $editContact1 = [
-            'query' => [
+            'query'     => [
                 'account_id' => 45429,
                 'contact_id' => 27,
             ],
@@ -136,7 +136,10 @@ class ContactEndpointTest extends BaseTest
     public function testEditUserDefinedField()
     {
         $newFieldParams = [
-            'query'     => ['group_id' => 5, 'account_id' => 45429],
+            'query'     => [
+                'group_id'   => 5,
+                'account_id' => 45429,
+            ],
             'fieldName' => 'Test field',
         ];
 
@@ -148,7 +151,10 @@ class ContactEndpointTest extends BaseTest
     public function testDeleteUserDefinedField()
     {
         $newFieldParams = [
-            'query'     => ['group_id' => 5, 'account_id' => 45429],
+            'query'     => [
+                'group_id'   => 5,
+                'account_id' => 45429,
+            ],
             'fieldName' => 'Test field',
         ];
 
@@ -159,7 +165,17 @@ class ContactEndpointTest extends BaseTest
 
     public function testAddContactsToGroup()
     {
-        $response = $this->client->contact->addContactsToGroup(['group_id' => 19, 'account_id' => 45429], [['query' => ['contact_id' => 6]]]);
+        $response = $this->client->contact->addContactsToGroup(
+            [
+                'query'    => [
+                    'group_id'   => 19,
+                    'account_id' => 45429,
+                ],
+                'contacts' => [
+                    ['query' => ['contact_id' => 6]],
+                ],
+            ]
+        );
 
         $this->assertInstanceOf(ApiResponse::class, $response);
     }
@@ -167,10 +183,10 @@ class ContactEndpointTest extends BaseTest
     public function testDeleteContactsToGroup()
     {
         $response = $this->client->contact->deleteContactsFromGroup([
-            'query' => ['group_id' => 19, 'account_id' => 45429],
+            'query'    => ['group_id' => 19, 'account_id' => 45429],
             'contacts' => [
-                ['query' => ['contact_id' => 6]]
-            ]
+                ['query' => ['contact_id' => 6]],
+            ],
         ]);
 
         $this->assertInstanceOf(ApiResponse::class, $response);

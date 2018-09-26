@@ -14,7 +14,6 @@ namespace Sctr\Greenrope\Api\Endpoint;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use PHPUnit\Framework\Warning;
 use Sctr\Greenrope\Api\ApiResponse;
 use Sctr\Greenrope\Api\Response\ApiAuthTokenResponse;
 use Sctr\Greenrope\Api\Response\GreenropeResponse;

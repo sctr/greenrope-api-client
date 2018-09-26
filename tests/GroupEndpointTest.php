@@ -53,7 +53,7 @@ class GroupEndpointTest extends BaseTest
     public function testGetGroups()
     {
         $groupParameters = [
-            'query' => ['account_id' => 45429]
+            'query' => ['account_id' => 45429],
         ];
 
         $response = $this->client->group->getGroups($groupParameters);
@@ -65,7 +65,7 @@ class GroupEndpointTest extends BaseTest
     {
         $parametersGroup1 = [
             'query' => ['group_id' => 19, 'account_id' => 45429],
-            'name' => 'Test group Edited'
+            'name'  => 'Test group Edited',
         ];
 
         $response = $this->client->group->editGroups(['groups' => [$parametersGroup1]]);
@@ -77,9 +77,9 @@ class GroupEndpointTest extends BaseTest
     {
         $groupsArray = [
             'groups' => [
-                ['query' => ['group_name' => "Test group", 'account_id' => 45429]],
-                ['query' => ['group_name' => "Test group 2", 'account_id' => 45429]]
-            ]
+                ['query' => ['group_name' => 'Test group', 'account_id' => 45429]],
+                ['query' => ['group_name' => 'Test group 2', 'account_id' => 45429]],
+            ],
         ];
 
         $response = $this->client->group->deleteGroups($groupsArray);

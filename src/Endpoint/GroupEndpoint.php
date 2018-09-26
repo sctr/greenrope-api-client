@@ -44,6 +44,7 @@ class GroupEndpoint extends AbstractEndpoint
      * @param array $parameters
      *
      * @throws \Exception
+     *
      * @return mixed
      */
     public function editGroups(array $parameters)
@@ -51,12 +52,11 @@ class GroupEndpoint extends AbstractEndpoint
         return $this->handleRequest('Group', 'Edit', $parameters);
     }
 
-
     /**
      * @param array $parameters
      *
      * @throws \Exception
-     *\n
+     *
      * @return mixed
      */
     public function deleteGroups(array $parameters)

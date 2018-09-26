@@ -27,7 +27,7 @@ class CreateGroupRequest extends GreenropeRequest
     ];
 
     const ALLOWED_QUERY_PARAMS = [
-        'account_id'
+        'account_id',
     ];
 
     /**

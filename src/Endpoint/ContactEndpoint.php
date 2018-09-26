@@ -153,9 +153,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $parameters
      *
-     * @return ApiResponse
-     *
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function addContactsToGroup(array $parameters)
     {
@@ -165,9 +165,9 @@ class ContactEndpoint extends AbstractEndpoint
     /**
      * @param array $parameters
      *
-     * @return ApiResponse
-     *
      * @throws \Exception
+     *
+     * @return ApiResponse
      */
     public function deleteContactsFromGroup(array $parameters)
     {

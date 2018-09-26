@@ -29,6 +29,6 @@ class GetGroupsResponse extends GreenropeResponse
 
     public function getResult()
     {
-       return $this->groups;
+        return $this->groups;
     }
 }

@@ -25,7 +25,7 @@ class GetContactGroupsRequest extends GreenropeRequest
         'contact_id',
         'firstname',
         'lastname',
-        'email'
+        'email',
     ];
 
     /**

@@ -23,7 +23,7 @@ class SendTestMailRequest extends GreenropeRequest
     const ALLOWED_QUERY_PARAMS = [
         'account_id',
         'Group_id',
-        'Group_name'
+        'Group_name',
     ];
 
     /**

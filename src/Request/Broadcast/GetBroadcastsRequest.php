@@ -13,11 +13,12 @@
 namespace Sctr\Greenrope\Api\Request\Broadcast;
 
 use JMS\Serializer\Annotation as Serializer;
+use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
  * @Serializer\XmlRoot("GetBroadcastsRequest")
  */
-class GetBroadcastsRequest
+class GetBroadcastsRequest extends GreenropeRequest
 {
     const ALLOWED_QUERY_PARAMS = [
         'account_id',
@@ -26,16 +27,11 @@ class GetBroadcastsRequest
         'Datetime_sent',
         'updated_timestamp',
         'message_type',
-        'get_all'
+        'get_all',
     ];
 
     /**
      * @Serializer\XmlAttributeMap()
      */
     protected $query;
-
-    public function __construct(array $query = [])
-    {
-        $this->query = $query;
-    }
 }

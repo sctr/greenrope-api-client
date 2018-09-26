@@ -13,9 +13,6 @@
 namespace Sctr\Greenrope\Api\Request\Contact;
 
 use JMS\Serializer\Annotation as Serializer;
-use Sctr\Greenrope\Api\Model\Group;
-use Sctr\Greenrope\Api\Model\Rule;
-use Sctr\Greenrope\Api\Model\SearchContactIncludes;
 use Sctr\Greenrope\Api\Request\GreenropeRequest;
 
 /**
@@ -25,7 +22,7 @@ class SearchContactsRequest extends GreenropeRequest
 {
     const ALLOWED_QUERY_PARAMS = [
         'account_id',
-        'group_id'
+        'group_id',
     ];
 
     /**

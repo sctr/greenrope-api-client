@@ -38,7 +38,7 @@ class GetContactsRequest extends GreenropeRequest
         'start_lastname',
         'end_lastname',
         'do_lead_scoring',
-        'search'
+        'search',
     ];
 
     /**

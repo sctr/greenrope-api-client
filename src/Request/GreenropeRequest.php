@@ -21,7 +21,7 @@ abstract class GreenropeRequest
     public function __construct(array $content = [])
     {
         $metadataFactory = new MetadataFactory(new AnnotationDriver(new AnnotationReader()));
-        $metadata = $metadataFactory->getMetadataForClass(get_class($this));
+        $metadata        = $metadataFactory->getMetadataForClass(get_class($this));
 
         foreach ($content as $key => $value) {
             $key = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $key))));
@@ -40,9 +40,9 @@ abstract class GreenropeRequest
                     && !empty($keyMetadata->type['params'])
                     && is_array($value)
                 ) {
-                    $class = 'Sctr\\Greenrope\\Api\\Model\\' . $metadata->propertyMetadata[$key]->xmlEntryName;
+                    $class = 'Sctr\\Greenrope\\Api\\Model\\'.$metadata->propertyMetadata[$key]->xmlEntryName;
                     foreach ($value as $newClassParams) {
-                        $newObject = new $class($newClassParams);
+                        $newObject      = new $class($newClassParams);
                         $this->{$key}[] = $newObject;
                     }
                 } elseif (strpos($keyMetadata->type['name'], 'Sctr\Greenrope\Api\Model\\') !== false) {

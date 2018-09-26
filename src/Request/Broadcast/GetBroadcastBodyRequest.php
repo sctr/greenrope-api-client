@@ -24,7 +24,7 @@ class GetBroadcastBodyRequest
         'broadcast_id',
         'group_id',
         'include_rfc822',
-        'contact_id'
+        'contact_id',
     ];
 
     /**

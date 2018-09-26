@@ -23,7 +23,7 @@ class GetEventsRequest extends GreenropeRequest
     const ALLOWED_QUERY_PARAMS = [
         'account_id',
         'get_all',
-        'updated_timestamp'
+        'updated_timestamp',
     ];
 
     /**
