@@ -10,7 +10,7 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Bang\Api\DependencyInjection;
+namespace Sctr\Greenrope\Api\DependencyInjection;
 
 use Sctr\Greenrope\Api\Client;
 use Sctr\Greenrope\Api\DependencyInjection\Configuration;
