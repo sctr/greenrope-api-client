@@ -29,6 +29,6 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('password')->isRequired()->end()
             ->end();
 
-        return $root;
+        return $tree;
     }
 }
