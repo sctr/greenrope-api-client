@@ -41,7 +41,7 @@ abstract class AbstractEndpoint
     private $apiUri;
     /** @var string */
     private $token;
-    /** @var integer */
+    /** @var int */
     protected $accountId;
 
     /**
@@ -53,9 +53,9 @@ abstract class AbstractEndpoint
     {
         $this->client = $client;
 
-        $this->apiUri   = $client->getConfig('base_uri');
-        $this->email    = $client->getConfig('email');
-        $this->password = $client->getConfig('password');
+        $this->apiUri    = $client->getConfig('base_uri');
+        $this->email     = $client->getConfig('email');
+        $this->password  = $client->getConfig('password');
         $this->accountId = $client->getConfig('account_id');
 
         $this->xmlConverter = new XmlSerializer();

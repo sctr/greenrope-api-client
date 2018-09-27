@@ -16,7 +16,6 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Metadata\Driver\AnnotationDriver;
 use Metadata\MetadataFactory;
-use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 abstract class AbstractModel
 {

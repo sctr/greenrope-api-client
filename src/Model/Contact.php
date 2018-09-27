@@ -23,7 +23,7 @@ class Contact extends AbstractModel
         'contact_id',
         'firstname',
         'lastname',
-        'email'
+        'email',
     ];
 
     /**

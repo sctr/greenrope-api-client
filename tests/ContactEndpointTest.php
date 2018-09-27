@@ -18,7 +18,7 @@ use Sctr\Greenrope\Api\Model\UserDefinedField;
 
 class ContactEndpointTest extends BaseTest
 {
-    /** @var integer */
+    /** @var int */
     private $contactId;
 
     public function setUp()
@@ -123,11 +123,11 @@ class ContactEndpointTest extends BaseTest
     public function testAddUserDefinedField()
     {
         $newFieldParams = [
-            'query'     => ['group_id' => 2],
-            'fieldName' => 'Test',
-            'fieldType' => 'Select',
-            'possibleValues' => 'Test1, Test2, Test3',
-            'contactEditable' => 'Visible'
+            'query'           => ['group_id' => 2],
+            'fieldName'       => 'Test',
+            'fieldType'       => 'Select',
+            'possibleValues'  => 'Test1, Test2, Test3',
+            'contactEditable' => 'Visible',
         ];
 
         $response = $this->client->contact->addUserDefinedField($newFieldParams);
@@ -139,11 +139,11 @@ class ContactEndpointTest extends BaseTest
     public function testEditUserDefinedField()
     {
         $newFieldParams = [
-            'query'     => [
-                'group_id'   => 2
+            'query'          => [
+                'group_id' => 2,
             ],
-            'fieldName' => 'Test',
-            'possibleValues' => 'Test1, Test2, Test3, Test4'
+            'fieldName'      => 'Test',
+            'possibleValues' => 'Test1, Test2, Test3, Test4',
         ];
 
         $response = $this->client->contact->editUserDefinedField($newFieldParams);
@@ -156,7 +156,7 @@ class ContactEndpointTest extends BaseTest
     {
         $newFieldParams = [
             'query'     => [
-                'group_id'   => 2
+                'group_id' => 2,
             ],
             'fieldName' => 'Test',
         ];
@@ -171,7 +171,7 @@ class ContactEndpointTest extends BaseTest
         $response = $this->client->contact->addContactsToGroup(
             [
                 'query'    => [
-                    'group_id'   => 2
+                    'group_id' => 2,
                 ],
                 'contacts' => [
                     ['query' => ['email' => 'testmail@tt.t']],
