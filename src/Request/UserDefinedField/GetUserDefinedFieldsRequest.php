@@ -21,7 +21,6 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
 class GetUserDefinedFieldsRequest extends GreenropeRequest
 {
     const ALLOWED_QUERY_PARAMS = [
-        'account_id',
         'updated_timestamp',
     ];
 

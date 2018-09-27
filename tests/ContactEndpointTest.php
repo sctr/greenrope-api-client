@@ -14,9 +14,13 @@ namespace Sctr\Greenrope\Api\Tests;
 
 use Sctr\Greenrope\Api\ApiResponse;
 use Sctr\Greenrope\Api\Model\Contact;
+use Sctr\Greenrope\Api\Model\UserDefinedField;
 
 class ContactEndpointTest extends BaseTest
 {
+    /** @var int */
+    private $contactId;
+
     public function setUp()
     {
         parent::setUp();
@@ -25,16 +29,14 @@ class ContactEndpointTest extends BaseTest
     public function testAddContactsRequest()
     {
         $contact1 = [
-            'query'             => ['account_id' => 45429],
             'firstName'         => 'Test',
-            'lastName'          => 'Test',
-            'email'             => 'testEmail@test.com',
-            'groups'            => [
-                ['id' => 16, 'name' => 'Test group'],
-            ],
+            'email  '           => 'testmail@tt.t',
             'userDefinedFields' => [
-                ['query' => ['fieldname' => 'first value fieldname'], 'value' => 'First value'],
-                ['query' => ['fieldname' => 'second value fieldname'], 'value' => 'Second value'],
+                ['query' => ['fieldname' => 'Username'], 'value' => 'Username value'],
+                ['query' => ['fieldname' => 'Username'], 'value' => 'Username2 value'],
+            ],
+            'groups'            => [
+                ['value' => 'Free Users (Social Networks)'],
             ],
         ];
 
@@ -44,12 +46,14 @@ class ContactEndpointTest extends BaseTest
         $this->assertTrue(is_array($response->getResult()));
 
         $this->assertInstanceOf(Contact::class, $response->getResult()[0]);
+
+        $this->contactId = $response->getResult()[0]->getId();
     }
 
     public function testGetContacts()
     {
         $searchAttributes = [
-            'query' => ['account_id' => 45429],
+            'query' => ['get_all' => true],
         ];
 
         /** @var ApiResponse $response */
@@ -64,38 +68,34 @@ class ContactEndpointTest extends BaseTest
     {
         $editContact1 = [
             'query'     => [
-                'account_id' => 45429,
-                'contact_id' => 27,
+                'email' => 'testmail@tt.t',
             ],
             'firstName' => 'Test Edited',
             'lastName'  => 'Test Edited',
         ];
 
-        $response = $this->client->contact->editContacts([$editContact1]);
+        $response = $this->client->contact->editContacts(['contacts' => [$editContact1]]);
 
         $this->assertTrue(is_array($response->getResult()));
         $this->assertInstanceOf(Contact::class, $response->getResult()[0]);
-        $this->assertTrue($response->getResult()[0]->getSuccess());
     }
 
     public function testDeleteContacts()
     {
-        $contact1 = ['query' => ['contact_id' => 30, 'account_id' => 45429]];
+        $contact1 = ['query' => ['email' => 'testmail@tt.t']];
 
-        $response = $this->client->contact->unsubscribeContacts([$contact1]);
+        $response = $this->client->contact->deleteContacts(['contacts' => [$contact1]]);
 
         $this->assertInstanceOf(Contact::class, $response->getResult()[0]);
-        $this->assertTrue($response->getResult()[0]->getId() === 27);
-        $this->assertTrue($response->getResult()[0]->getSuccess());
+        $this->assertTrue($response->getResult()[0]->getId() > 0);
     }
 
     public function testGetUserDefinedFields()
     {
-        $query = ['query' => ['account_id' => 45429]];
-
-        $response = $this->client->contact->getUserDefinedFields($query);
+        $response = $this->client->contact->getUserDefinedFields();
 
         $this->assertTrue(is_array($response->getResult()));
+        $this->assertInstanceOf(UserDefinedField::class, $response->getResult()[0]);
     }
 
     public function testGetContactGroups()
@@ -108,54 +108,57 @@ class ContactEndpointTest extends BaseTest
     public function testSearchContacts()
     {
         $searchParams = [
-            'query'  => ['account_id' => 45429, 'group_id' => 5],
-            'from'   => 'single',
-            'groups' => [
-                ['value' => '1'],
-                ['value' => 2],
-            ],
+            'query'  => ['group_id' => 2],
+            'from'   => 'all',
+            'filter' => 'all',
         ];
 
         $response = $this->client->contact->searchContacts($searchParams);
 
         $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertTrue(is_array($response->getResult()));
+        $this->assertInstanceOf(Contact::class, $response->getResult()['contacts'][0]);
     }
 
     public function testAddUserDefinedField()
     {
         $newFieldParams = [
-            'query'     => ['group_id' => 5, 'account_id' => 45429],
-            'fieldName' => 'Test field',
+            'query'           => ['group_id' => 2],
+            'fieldName'       => 'Test',
+            'fieldType'       => 'Select',
+            'possibleValues'  => 'Test1, Test2, Test3',
+            'contactEditable' => 'Visible',
         ];
 
         $response = $this->client->contact->addUserDefinedField($newFieldParams);
 
         $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertTrue(is_numeric($response->getResult()['userFieldId']));
     }
 
     public function testEditUserDefinedField()
     {
         $newFieldParams = [
-            'query'     => [
-                'group_id'   => 5,
-                'account_id' => 45429,
+            'query'          => [
+                'group_id' => 2,
             ],
-            'fieldName' => 'Test field',
+            'fieldName'      => 'Test',
+            'possibleValues' => 'Test1, Test2, Test3, Test4',
         ];
 
         $response = $this->client->contact->editUserDefinedField($newFieldParams);
 
         $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertTrue(is_numeric($response->getResult()['userFieldId']));
     }
 
     public function testDeleteUserDefinedField()
     {
         $newFieldParams = [
             'query'     => [
-                'group_id'   => 5,
-                'account_id' => 45429,
+                'group_id' => 2,
             ],
-            'fieldName' => 'Test field',
+            'fieldName' => 'Test',
         ];
 
         $response = $this->client->contact->deleteUserDefinedField($newFieldParams);
@@ -168,11 +171,10 @@ class ContactEndpointTest extends BaseTest
         $response = $this->client->contact->addContactsToGroup(
             [
                 'query'    => [
-                    'group_id'   => 19,
-                    'account_id' => 45429,
+                    'group_id' => 2,
                 ],
                 'contacts' => [
-                    ['query' => ['contact_id' => 6]],
+                    ['query' => ['email' => 'testmail@tt.t']],
                 ],
             ]
         );
@@ -180,12 +182,12 @@ class ContactEndpointTest extends BaseTest
         $this->assertInstanceOf(ApiResponse::class, $response);
     }
 
-    public function testDeleteContactsToGroup()
+    public function testDeleteContactsFromGroup()
     {
         $response = $this->client->contact->deleteContactsFromGroup([
-            'query'    => ['group_id' => 19, 'account_id' => 45429],
+            'query'    => ['group_id' => 2],
             'contacts' => [
-                ['query' => ['contact_id' => 6]],
+                ['query' => ['email' => 'testmail@tt.t']],
             ],
         ]);
 

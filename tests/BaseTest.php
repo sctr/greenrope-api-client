@@ -34,9 +34,10 @@ abstract class BaseTest extends TestCase
         $this->faker = Faker::create();
 
         $this->client = new Client([
-            'email'    => 'thomas@bang.com',
-            'password' => 'SctrApi5!',
-            'api_url'  => 'https://api.stgi.net/api-xml',
+            'email'      => 'thomas@bang.com',
+            'password'   => 'SctrApi5!',
+            'api_url'    => 'https://api.stgi.net/api-xml',
+            'account_id' => 45429,
         ]);
     }
 }

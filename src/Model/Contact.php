@@ -19,6 +19,13 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class Contact extends AbstractModel
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'contact_id',
+        'firstname',
+        'lastname',
+        'email',
+    ];
+
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()

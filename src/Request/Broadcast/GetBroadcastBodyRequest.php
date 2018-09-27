@@ -20,7 +20,6 @@ use JMS\Serializer\Annotation as Serializer;
 class GetBroadcastBodyRequest
 {
     const ALLOWED_QUERY_PARAMS = [
-        'account_id',
         'broadcast_id',
         'group_id',
         'include_rfc822',

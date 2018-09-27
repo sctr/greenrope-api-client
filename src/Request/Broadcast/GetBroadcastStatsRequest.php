@@ -21,7 +21,6 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
 class GetBroadcastStatsRequest extends GreenropeRequest
 {
     const ALLOWED_QUERY_PARAMS = [
-        'account_id',
         'broadcast_id',
         'order_by',
         'limit',

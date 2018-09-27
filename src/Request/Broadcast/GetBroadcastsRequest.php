@@ -21,7 +21,6 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
 class GetBroadcastsRequest extends GreenropeRequest
 {
     const ALLOWED_QUERY_PARAMS = [
-        'account_id',
         'Group_id',
         'Contact_id',
         'Datetime_sent',

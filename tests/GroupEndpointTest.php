@@ -16,12 +16,16 @@ use Sctr\Greenrope\Api\ApiResponse;
 
 class GroupEndpointTest extends BaseTest
 {
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
     public function testCreateGroup()
     {
         $groupParameters = [
-            'query' => ['account_id' => 45429],
-            'name'  => 'Test group 2',
-            'type'  => 'Hidden',
+            'name'  => 'Test group',
+            'type'  => 'Public',
         ];
 
         $response = $this->client->group->create($groupParameters);
@@ -29,42 +33,33 @@ class GroupEndpointTest extends BaseTest
         $this->assertInstanceOf(ApiResponse::class, $response);
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessageRegExp "Error while creating group.*"
-     */
     public function testCreateExistingGroup()
     {
-        $name = $this->faker->name;
-
         $groupParameters = [
-            'query' => ['account_id' => 45429],
-            'name'  => $name,
-            'type'  => 'Hidden',
+            'name'  => 'Test group',
+            'type'  => 'Public',
         ];
 
-        // Successful create
-        $this->client->group->create($groupParameters);
+        // Second create  with same parameters as previous test (for simultaneous test run)- throws exception
+        $response = $this->client->group->create($groupParameters);
 
-        // Second create with same parameters - throws exception
-        $this->client->group->create($groupParameters);
+        $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertTrue(!empty($response->getException()));
     }
 
     public function testGetGroups()
     {
-        $groupParameters = [
-            'query' => ['account_id' => 45429],
-        ];
-
-        $response = $this->client->group->getGroups($groupParameters);
+        $response = $this->client->group->getGroups();
 
         $this->assertInstanceOf(ApiResponse::class, $response);
+        $this->assertTrue(is_array($response->getResult()));
+        $this->assertTrue(count($response->getResult()) >= 1);
     }
 
     public function testEditGroups()
     {
         $parametersGroup1 = [
-            'query' => ['group_id' => 19, 'account_id' => 45429],
+            'query' => ['group_name' => 'Test group'],
             'name'  => 'Test group Edited',
         ];
 
@@ -77,8 +72,7 @@ class GroupEndpointTest extends BaseTest
     {
         $groupsArray = [
             'groups' => [
-                ['query' => ['group_name' => 'Test group', 'account_id' => 45429]],
-                ['query' => ['group_name' => 'Test group 2', 'account_id' => 45429]],
+                ['query' => ['group_name' => 'Test group Edited']],
             ],
         ];
 

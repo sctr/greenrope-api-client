@@ -35,7 +35,7 @@ class GroupEndpoint extends AbstractEndpoint
      *
      * @return ApiResponse
      */
-    public function getGroups(array $searchAttributes)
+    public function getGroups(array $searchAttributes = [])
     {
         return $this->handleRequest('Group', 'Get', $searchAttributes);
     }

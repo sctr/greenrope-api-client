@@ -23,7 +23,7 @@ class BroadcastEndpoint extends AbstractEndpoint
      *
      * @return ApiResponse
      */
-    public function getBroadcasts(array $searchParameters)
+    public function getBroadcasts(array $searchParameters = [])
     {
         return $this->handleRequest('Broadcast', 'Get', $searchParameters);
     }

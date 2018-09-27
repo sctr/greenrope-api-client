@@ -87,7 +87,7 @@ class ContactEndpoint extends AbstractEndpoint
      */
     public function getContactGroupsRequest($contactId)
     {
-        return $this->handleRequest('ContactGroup', 'Get', ['contact_id' => $contactId, 'account_id' => 45429]);
+        return $this->handleRequest('ContactGroup', 'Get', ['contact_id' => $contactId]);
     }
 
     /**
@@ -109,7 +109,7 @@ class ContactEndpoint extends AbstractEndpoint
      *
      * @return ApiResponse
      */
-    public function getUserDefinedFields(array $parameters)
+    public function getUserDefinedFields(array $parameters = [])
     {
         return $this->handleRequest('UserDefinedField', 'Get', $parameters);
     }
