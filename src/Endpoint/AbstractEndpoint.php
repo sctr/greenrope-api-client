@@ -41,6 +41,8 @@ abstract class AbstractEndpoint
     private $apiUri;
     /** @var string */
     private $token;
+    /** @var integer */
+    protected $accountId;
 
     /**
      * AbstractEndpoint constructor.
@@ -54,6 +56,7 @@ abstract class AbstractEndpoint
         $this->apiUri   = $client->getConfig('base_uri');
         $this->email    = $client->getConfig('email');
         $this->password = $client->getConfig('password');
+        $this->accountId = $client->getConfig('account_id');
 
         $this->xmlConverter = new XmlSerializer();
     }
@@ -142,6 +145,8 @@ abstract class AbstractEndpoint
         }
 
         $requestName .= 'Request';
+
+        $parameters = array_merge(['accountId' => $this->accountId], $parameters);
 
         $request = new $requestName($parameters);
 

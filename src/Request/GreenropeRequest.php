@@ -13,13 +13,22 @@
 namespace Sctr\Greenrope\Api\Request;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Metadata\Driver\AnnotationDriver;
 use Metadata\MetadataFactory;
 
 abstract class GreenropeRequest
 {
+    /**
+     * @Serializer\XmlAttribute()
+     * @Serializer\SerializedName("account_id")
+     */
+    protected $accountId;
+
     public function __construct(array $content = [])
     {
+        $this->accountId = $content['accountId'];
+
         $metadataFactory = new MetadataFactory(new AnnotationDriver(new AnnotationReader()));
         $metadata        = $metadataFactory->getMetadataForClass(get_class($this));
 
@@ -42,11 +51,11 @@ abstract class GreenropeRequest
                 ) {
                     $class = 'Sctr\\Greenrope\\Api\\Model\\'.$metadata->propertyMetadata[$key]->xmlEntryName;
                     foreach ($value as $newClassParams) {
-                        $newObject      = new $class($newClassParams);
+                        $newObject      = new $class(array_merge(['accountId' => $this->accountId], $newClassParams));
                         $this->{$key}[] = $newObject;
                     }
                 } elseif (strpos($keyMetadata->type['name'], 'Sctr\Greenrope\Api\Model\\') !== false) {
-                    $this->{$key} = new $keyMetadata->type['name']($value);
+                    $this->{$key} = new $keyMetadata->type['name'](array_merge(['accountId' => $this->accountId], $value));
                 } else {
                     $this->{$key} = $value;
                 }

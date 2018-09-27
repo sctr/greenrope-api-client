@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('api_url')->isRequired()->defaultValue('https://api.stgi.net/api-xml')->end()
                 ->scalarNode('email')->isRequired()->end()
                 ->scalarNode('password')->isRequired()->end()
+                ->integerNode('account_id')->isRequired()->end()
             ->end();
 
         return $tree;

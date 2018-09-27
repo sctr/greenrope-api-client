@@ -21,7 +21,6 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
 class GetContactsRequest extends GreenropeRequest
 {
     const ALLOWED_QUERY_PARAMS = [
-        'account_id',
         'contact_id',
         'group_id',
         'firstname',

@@ -37,6 +37,7 @@ abstract class BaseTest extends TestCase
             'email'    => 'thomas@bang.com',
             'password' => 'SctrApi5!',
             'api_url'  => 'https://api.stgi.net/api-xml',
+            'account_id' => 45429
         ]);
     }
 }

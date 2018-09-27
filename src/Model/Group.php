@@ -19,6 +19,11 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class Group extends AbstractModel
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'group_id',
+        'group_name',
+    ];
+
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()

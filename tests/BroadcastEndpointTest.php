@@ -20,7 +20,7 @@ class BroadcastEndpointTest extends BaseTest
     {
         $searchParameters = [
             'query' => [
-                'account_id' => 45429,
+                'Group_id' => 2,
             ],
         ];
 
@@ -33,7 +33,6 @@ class BroadcastEndpointTest extends BaseTest
     {
         $searchParameters = [
             'query' => [
-                'account_id'   => 45429,
                 'broadcast_id' => '996',
                 'message_type' => 'personal_email',
             ],

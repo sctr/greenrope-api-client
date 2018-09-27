@@ -32,6 +32,10 @@ class UserDefinedField extends AbstractModel
         'Editable' => 'Editable',
     ];
 
+    const ALLOWED_QUERY_PARAMS = [
+        'fieldname',
+    ];
+
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
