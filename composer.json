@@ -4,7 +4,7 @@
     "type": "library",
     "require": {
         "guzzlehttp/guzzle": "^6.3",
-        "phpunit/phpunit": "^7.3",
+        "phpunit/phpunit": "^6.0|^7.0",
         "jms/serializer": "^1.13"
     },
     "license": "Proprietary",
