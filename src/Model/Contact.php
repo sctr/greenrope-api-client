@@ -230,4 +230,12 @@ class Contact extends AbstractModel
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\UserDefinedField>")
      */
     protected $userDefinedFields;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("WorkflowID")
+     */
+    protected $workflowId;
 }

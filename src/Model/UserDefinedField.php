@@ -71,6 +71,14 @@ class UserDefinedField extends AbstractModel
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
      * @Serializer\Type("string")
+     * @Serializer\SerializedName("FieldValue")
+     */
+    protected $fieldValue;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("string")
      */
     protected $possibleValues;
 

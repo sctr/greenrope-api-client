@@ -20,6 +20,15 @@ use Sctr\Greenrope\Api\Request\GreenropeRequest;
  */
 class AddContactsRequest extends GreenropeRequest
 {
+    const ALLOWED_QUERY_PARAMS = [
+        'update',
+    ];
+
+    /**
+     * @Serializer\XmlAttributeMap()
+     */
+    protected $query;
+
     /**
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Contact>")
      * @Serializer\SerializedName("Contacts")
