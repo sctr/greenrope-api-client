@@ -27,6 +27,8 @@ class GetContactsRequest extends GreenropeRequest
         'lastname',
         'email',
         'get_all',
+        'start_chunk_page',
+        'start_chunk_size',
         'Unsubscribed',
         'Unsubscribed_startdate',
         'Unsubscribed_enddate',
