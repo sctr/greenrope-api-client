@@ -238,4 +238,15 @@ class Contact extends AbstractModel
      * @Serializer\SerializedName("WorkflowID")
      */
     protected $workflowId;
+
+    public function getUserDefinedFieldByName($fieldName)
+    {
+        if (!empty($this->userDefinedFields)) {
+            foreach ($this->userDefinedFields as $userDefinedField) {
+                if ($userDefinedField->getName() === $fieldName) {
+                    return $userDefinedField;
+                }
+            }
+        }
+    }
 }

@@ -193,4 +193,34 @@ class ContactEndpointTest extends BaseTest
 
         $this->assertInstanceOf(ApiResponse::class, $response);
     }
+
+    public function testGetContactByEmail()
+    {
+        $response = $this->client->contact->getContactByEmail('testmail2@tt.t');
+
+        $this->assertInstanceOf(Contact::class, $response);
+        $this->assertEquals('testmail2@tt.t', $response->getEmail());
+    }
+
+    public function testAddUserDefinedFieldToContact()
+    {
+        $contact  = $this->client->contact->getContactByEmail('testmail2@tt.t');
+        $response = $this->client->contact->addUserDefinedFieldToContact(
+            $contact,
+            'Test field name',
+            'Test value for test fieldname for test user'
+        );
+
+        $this->assertTrue($response);
+    }
+
+    public function testGetUserDefinedFieldByName()
+    {
+        $contact = $this->client->contact->getContactByEmail('testmail2@tt.t');
+
+        $field = $contact->getUserDefinedFieldByName('Username');
+
+        $this->assertTrue(!empty($field));
+        $this->assertEquals($field->getName(), 'Username');
+    }
 }

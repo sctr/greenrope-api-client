@@ -13,6 +13,8 @@
 namespace Sctr\Greenrope\Api\Endpoint;
 
 use Sctr\Greenrope\Api\ApiResponse;
+use Sctr\Greenrope\Api\Model\Contact;
+use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 class ContactEndpoint extends AbstractEndpoint
 {
@@ -40,6 +42,31 @@ class ContactEndpoint extends AbstractEndpoint
     public function getContacts(array $searchAttributes = [])
     {
         return $this->handleRequest('Contact', 'Get', $searchAttributes);
+    }
+
+    /**
+     * @param $email
+     *
+     * @throws \Exception
+     *
+     * @return Contact|null
+     */
+    public function getContactByEmail($email)
+    {
+        $searchAttributes = [
+            'query' => ['email' => $email],
+        ];
+
+        /** @var ApiResponse $response */
+        $response = $this->handleRequest('Contact', 'Get', $searchAttributes);
+
+        if ($response->getException()) {
+            throw new \Exception($response->getException()->getMessage());
+        }
+
+        if ($response->getResult() && $response->getResult()['total'] === 1) {
+            return $response->getResult()['contacts'][0];
+        }
     }
 
     /**
@@ -124,6 +151,28 @@ class ContactEndpoint extends AbstractEndpoint
     public function addUserDefinedField(array $newFieldParameters)
     {
         return $this->handleRequest('UserDefinedField', 'Add', $newFieldParameters, false);
+    }
+
+    public function addUserDefinedFieldToContact(Contact $contact, string $fieldName, string $fieldValue)
+    {
+        $editData = [
+            'contacts' => [
+                [
+                    'query'             => ['contact_id' => $contact->getId()],
+                    'userDefinedFields' => [
+                        ['query' => ['fieldname' => $fieldName], 'value' => $fieldValue],
+                    ],
+                ],
+            ],
+        ];
+
+        $response = $this->handleRequest('Contact', 'Edit', $editData);
+
+        if ($response->getException()) {
+            throw new \Exception($response->getException()->getMessage());
+        }
+
+        return $response->getResult()[0]->getSuccess() === GreenropeResponse::SUCCESS_RESPONSE;
     }
 
     /**

@@ -15,50 +15,41 @@ namespace Sctr\Greenrope\Api\Endpoint;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Sctr\Greenrope\Api\ApiResponse;
-use Sctr\Greenrope\Api\Response\ApiAuthTokenResponse;
 use Sctr\Greenrope\Api\Response\GreenropeResponse;
+use Sctr\Greenrope\Api\Service\GreenropeAuthenticator;
 use Sctr\Greenrope\Api\Service\XmlSerializer;
 
 abstract class AbstractEndpoint
 {
-    public const GET_AUTH_TOKEN_XML = '<GetAuthTokenRequest></GetAuthTokenRequest>';
-
-    public const IRREGULAR_PLURALS = [
-        'Company'      => 'Companies',
-        'CRM Activity' => 'CRM Activities',
-    ];
-
     /** @var Client */
     protected $client;
     /** @var XmlSerializer */
     protected $xmlConverter;
+    /** @var GreenropeAuthenticator */
+    private $authenticator;
 
     /** @var string */
     private $email;
     /** @var string */
-    private $password;
-    /** @var string */
     private $apiUri;
-    /** @var string */
-    private $token;
     /** @var int */
     protected $accountId;
 
     /**
      * AbstractEndpoint constructor.
      *
-     * @param Client $client
+     * @param Client                 $client
+     * @param GreenropeAuthenticator $authenticator
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, GreenropeAuthenticator $authenticator)
     {
-        $this->client = $client;
+        $this->client        = $client;
+        $this->authenticator = $authenticator;
+        $this->xmlConverter  = new XmlSerializer();
 
         $this->apiUri    = $client->getConfig('base_uri');
         $this->email     = $client->getConfig('email');
-        $this->password  = $client->getConfig('password');
         $this->accountId = $client->getConfig('account_id');
-
-        $this->xmlConverter = new XmlSerializer();
     }
 
     /**
@@ -68,14 +59,10 @@ abstract class AbstractEndpoint
      *
      * @throws \Exception
      *
-     * @return mixed
+     * @return ApiResponse
      */
     protected function handleRequest($objectName, $method, array $parameters = [], $multipleObjects = true, $additionalNameParameters = null)
     {
-        if (!$this->token) {
-            $this->getAuthToken();
-        }
-
         $apiResponse = new ApiResponse();
 
         $parameters = $this->buildParametersForRequest($method, $objectName, $parameters, $multipleObjects, $additionalNameParameters);
@@ -98,31 +85,6 @@ abstract class AbstractEndpoint
         $apiResponse->setResult($responseObject->getResult());
 
         return $apiResponse;
-    }
-
-    /**
-     * Retrieves the auth token.
-     *
-     * @throws \Exception
-     */
-    private function getAuthToken()
-    {
-        $parameters = [
-            'email'    => $this->email,
-            'password' => $this->password,
-            'xml'      => self::GET_AUTH_TOKEN_XML,
-        ];
-
-        $response = $this->client->post($this->apiUri, ['form_params' => $parameters]);
-
-        /** @var ApiAuthTokenResponse $response */
-        $response = $this->xmlConverter->deserializeXml($response->getBody(), ApiAuthTokenResponse::class);
-
-        if (!empty($token = $response->getResult())) {
-            $this->token = $token;
-        } else {
-            throw new \Exception(sprintf('Authentication error: %s', $response->getErrorText()));
-        }
     }
 
     /**
@@ -150,12 +112,13 @@ abstract class AbstractEndpoint
 
         $request = new $requestName($parameters);
 
-        $xml = $this->xmlConverter->serializeObjectToXml($request);
+        $token = $this->authenticator->getAuthToken();
+        $xml   = $this->xmlConverter->serializeObjectToXml($request);
 
         $parameters = [
             'form_params' => [
                 'email'      => $this->email,
-                'auth_token' => $this->token,
+                'auth_token' => $token,
                 'xml'        => $xml,
             ],
         ];
