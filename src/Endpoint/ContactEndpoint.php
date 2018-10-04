@@ -114,7 +114,7 @@ class ContactEndpoint extends AbstractEndpoint
      */
     public function getContactGroupsRequest($contactId)
     {
-        return $this->handleRequest('ContactGroup', 'Get', ['contact_id' => $contactId]);
+        return $this->handleRequest('Contact', 'Get', ['contact_id' => $contactId], false, 'Groups');
     }
 
     /**

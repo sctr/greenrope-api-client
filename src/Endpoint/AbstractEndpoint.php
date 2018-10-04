@@ -21,6 +21,10 @@ use Sctr\Greenrope\Api\Service\XmlSerializer;
 
 abstract class AbstractEndpoint
 {
+    const IRREGULAR_PLURALS = [
+        'CrmActivity' => 'CrmActivities',
+    ];
+
     /** @var Client */
     protected $client;
     /** @var XmlSerializer */
@@ -96,10 +100,14 @@ abstract class AbstractEndpoint
      */
     private function buildParametersForRequest($method, $objectName, array $parameters = [], $multipleObjects = true, $additionalNameParameters = null)
     {
-        $requestName = 'Sctr\Greenrope\Api\Request\\'.ucfirst($objectName).'\\'.ucfirst($method).ucfirst($objectName);
+        $requestName = 'Sctr\Greenrope\Api\Request\\'.ucfirst($objectName).'\\'.ucfirst($method);
 
-        if ($multipleObjects) {
-            $requestName .= 's';
+        if (!$multipleObjects) {
+            $requestName .= ucfirst($objectName);
+        } elseif (array_key_exists($objectName, self::IRREGULAR_PLURALS)) {
+            $requestName .= self::IRREGULAR_PLURALS[$objectName];
+        } else {
+            $requestName .= ucfirst($objectName).'s';
         }
 
         if ($additionalNameParameters) {
@@ -126,12 +134,16 @@ abstract class AbstractEndpoint
         return $parameters;
     }
 
-    private function generateResponseClassName($objectName, $method, $mutipleObjects, $additionalNameParameters)
+    private function generateResponseClassName($objectName, $method, $multipleObjects, $additionalNameParameters)
     {
-        $responseName = 'Sctr\Greenrope\Api\Response\\'.ucfirst($objectName).'\\'.ucfirst($method).ucfirst($objectName);
+        $responseName = 'Sctr\Greenrope\Api\Response\\'.ucfirst($objectName).'\\'.ucfirst($method);
 
-        if ($mutipleObjects) {
-            $responseName .= 's';
+        if (!$multipleObjects) {
+            $responseName .= ucfirst($objectName);
+        } elseif (array_key_exists($objectName, self::IRREGULAR_PLURALS)) {
+            $responseName .= self::IRREGULAR_PLURALS[$objectName];
+        } else {
+            $responseName .= ucfirst($objectName).'s';
         }
 
         if ($additionalNameParameters) {

@@ -19,7 +19,7 @@ use Sctr\Greenrope\Api\Service\GreenropeAuthenticator;
  * @property-read \Sctr\Greenrope\Api\Endpoint\ContactEndpoint $contact
  * @property-read \Sctr\Greenrope\Api\Endpoint\GroupEndpoint $group
  * @property-read \Sctr\Greenrope\Api\Endpoint\BroadcastEndpoint $broadcast
- * @property-read \Sctr\Greenrope\Api\Endpoint\EventEndpoint $event
+ * @property-read \Sctr\Greenrope\Api\Endpoint\CrmActivityEndpoint $crmActivity
  */
 class Client extends BaseClient
 {

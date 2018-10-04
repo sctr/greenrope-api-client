@@ -68,7 +68,10 @@ abstract class AbstractModel
                 if ($key === 'query') {
                     foreach ($value as $queryKey => $queryParameter) {
                         if (array_search($queryKey, $this::ALLOWED_QUERY_PARAMS, true) === false) {
-                            throw new \Exception('Invalid query parameter sent.');
+                            throw new \Exception(sprintf(
+                                'Invalid query parameter sent. Allowed query values: %s',
+                                implode(', ', $this::ALLOWED_QUERY_PARAMS)
+                            ));
                         }
                     }
                 }
