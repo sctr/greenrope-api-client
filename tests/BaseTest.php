@@ -13,8 +13,6 @@
 namespace Sctr\Greenrope\Api\Tests;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Faker\Factory as Faker;
-use Faker\Generator;
 use PHPUnit\Framework\TestCase;
 use Sctr\Greenrope\Api\Client;
 
@@ -23,19 +21,23 @@ abstract class BaseTest extends TestCase
     /** @var Client */
     protected $client;
 
-    /** @var Generator */
-    protected $faker;
-
     public function setUp()
     {
         $loader = require '../vendor/autoload.php';
         AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 
-        $this->faker = Faker::create();
+//        shared access user
+//        $this->client = new Client([
+//            'email'      => 'thomas@bang.com',
+//            'password'   => 'SctrApi5!',
+//            'api_url'    => 'https://api.stgi.net/api-xml',
+//            'account_id' => 45429,
+//        ]);
 
+        //owner account
         $this->client = new Client([
-            'email'      => 'thomas@bang.com',
-            'password'   => 'SctrApi5!',
+            'email'      => 'clement@sctr.net',
+            'password'   => '55da0MD6V3*v',
             'api_url'    => 'https://api.stgi.net/api-xml',
             'account_id' => 45429,
         ]);

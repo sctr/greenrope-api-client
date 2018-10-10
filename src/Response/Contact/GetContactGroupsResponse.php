@@ -10,7 +10,7 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Response\ContactGroup;
+namespace Sctr\Greenrope\Api\Response\Contact;
 
 use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Response\GreenropeResponse;
@@ -21,7 +21,7 @@ use Sctr\Greenrope\Api\Response\GreenropeResponse;
 class GetContactGroupsResponse extends GreenropeResponse
 {
     /**
-     * @Serializer\Type("array<Sctr\Greenrope\Api\Model\ContactGroup>")
+     * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Group>")
      * @Serializer\SerializedName("ContactGroups")
      * @Serializer\XmlList(entry="ContactGroup")
      */

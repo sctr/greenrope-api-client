@@ -38,7 +38,10 @@ abstract class GreenropeRequest
                 if ($key === 'query') {
                     foreach ($value as $queryKey => $queryParameter) {
                         if (array_search($queryKey, $this::ALLOWED_QUERY_PARAMS, true) === false) {
-                            throw new \Exception('Invalid query parameter sent.');
+                            throw new \Exception(sprintf(
+                                'Invalid query parameter sent. Allowed query values: %s',
+                                implode(', ', $this::ALLOWED_QUERY_PARAMS)
+                            ));
                         }
                     }
                 }
@@ -47,9 +50,10 @@ abstract class GreenropeRequest
                 if ($keyMetadata->xmlCollection === true
                     && $keyMetadata->type['name'] === 'array'
                     && !empty($keyMetadata->type['params'])
+                    && strpos($keyMetadata->type['params'][0]['name'], 'Sctr\Greenrope\Api\Model\\') !== false
                     && is_array($value)
                 ) {
-                    $class = 'Sctr\\Greenrope\\Api\\Model\\'.$metadata->propertyMetadata[$key]->xmlEntryName;
+                    $class = $keyMetadata->type['params'][0]['name'];
                     foreach ($value as $newClassParams) {
                         $newObject      = new $class(array_merge(['accountId' => $this->accountId], $newClassParams));
                         $this->{$key}[] = $newObject;

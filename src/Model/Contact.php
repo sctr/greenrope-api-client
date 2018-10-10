@@ -37,10 +37,25 @@ class Contact extends AbstractModel
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("Firstname")
+     * @Serializer\Type("integer")
+     * @Serializer\SerializedName("ContactID")
      */
-    protected $firstName;
+    protected $contactId;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("string")
+     */
+    protected $firstname;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Contact_firstname")
+     */
+    protected $contactFirstname;
 
     /**
      * @Serializer\XmlElement(cdata=false)
@@ -48,6 +63,21 @@ class Contact extends AbstractModel
      * @Serializer\Type("string")
      */
     protected $lastName;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Contact_lastname")
+     */
+    protected $contactLastname;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("string")
+     */
+    protected $name;
 
     /**
      * @Serializer\XmlElement(cdata=false)
@@ -139,6 +169,14 @@ class Contact extends AbstractModel
      * @Serializer\Type("string")
      */
     protected $email;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("Contact_email")
+     */
+    protected $contactEmail;
 
     /**
      * @Serializer\XmlElement(cdata=false)
@@ -238,4 +276,33 @@ class Contact extends AbstractModel
      * @Serializer\SerializedName("WorkflowID")
      */
     protected $workflowId;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\XmlList(entry="DatetimeRead")
+     * @Serializer\Type("array<DateTime<'Y-m-d H:i:s'>>")
+     * @Serializer\SerializedName("Read_data")
+     */
+    protected $readData;
+
+    /**
+     * @Serializer\XmlElement(cdata=false)
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\XmlList(entry="Click")
+     * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Click>")
+     * @Serializer\SerializedName("Click_data")
+     */
+    protected $clickData;
+
+    public function getUserDefinedFieldByName($fieldName)
+    {
+        if (!empty($this->userDefinedFields)) {
+            foreach ($this->userDefinedFields as $userDefinedField) {
+                if ($userDefinedField->getName() === $fieldName) {
+                    return $userDefinedField;
+                }
+            }
+        }
+    }
 }

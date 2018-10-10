@@ -16,5 +16,6 @@ greenrope_api_client:
     api_url: https://api.stgi.net/api-xml
     email: thomas@bang.com
     password: password
+    account_id: account id
 
 ```

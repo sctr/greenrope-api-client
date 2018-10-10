@@ -13,17 +13,23 @@
 namespace Sctr\Greenrope\Api;
 
 use GuzzleHttp\Client as BaseClient;
+use Sctr\Greenrope\Api\Service\GreenropeAuthenticator;
 
 /**
  * @property-read \Sctr\Greenrope\Api\Endpoint\ContactEndpoint $contact
  * @property-read \Sctr\Greenrope\Api\Endpoint\GroupEndpoint $group
  * @property-read \Sctr\Greenrope\Api\Endpoint\BroadcastEndpoint $broadcast
- * @property-read \Sctr\Greenrope\Api\Endpoint\EventEndpoint $event
+ * @property-read \Sctr\Greenrope\Api\Endpoint\CrmActivityEndpoint $crmActivity
  */
 class Client extends BaseClient
 {
+    /** @var GreenropeAuthenticator */
+    private $authenticator;
+
     public function __construct(array $config = [])
     {
+        $this->authenticator = new GreenropeAuthenticator($config);
+
         $config['base_uri'] = $config['api_url'];
         unset($config['api_url']);
 
@@ -56,6 +62,6 @@ class Client extends BaseClient
             throw new \Exception("Endpoint \"{$name}\" does not exist. ");
         }
 
-        return new $class($this);
+        return new $class($this, $this->authenticator);
     }
 }

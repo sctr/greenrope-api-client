@@ -10,7 +10,7 @@
  * @license     No License (Proprietary)
  */
 
-namespace Sctr\Greenrope\Api\Request\ContactGroup;
+namespace Sctr\Greenrope\Api\Request\Contact;
 
 use JMS\Serializer\Annotation as Serializer;
 use Sctr\Greenrope\Api\Request\GreenropeRequest;
