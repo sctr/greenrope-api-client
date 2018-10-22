@@ -26,14 +26,20 @@ class Client extends BaseClient
     /** @var GreenropeAuthenticator */
     private $authenticator;
 
+    /** @var array */
+    private $groups;
+
     public function __construct(array $config = [])
     {
-        $this->authenticator = new GreenropeAuthenticator($config);
+        $connectionData = $config['connection'];
+        $connectionData['base_uri'] = $connectionData['api_url'];
+        unset($connectionData['api_url']);
 
-        $config['base_uri'] = $config['api_url'];
-        unset($config['api_url']);
+        parent::__construct($connectionData);
 
-        parent::__construct($config);
+        $this->authenticator = new GreenropeAuthenticator($connectionData);
+
+        $this->groups = $config['groups'];
     }
 
     /**
@@ -63,5 +69,10 @@ class Client extends BaseClient
         }
 
         return new $class($this, $this->authenticator);
+    }
+
+    public function getGroup(string $name)
+    {
+        return $this->groups[$name];
     }
 }

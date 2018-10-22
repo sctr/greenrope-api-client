@@ -13,6 +13,7 @@
 namespace Sctr\Greenrope\Api\Endpoint;
 
 use Sctr\Greenrope\Api\ApiResponse;
+use Sctr\Greenrope\Api\Model\Group;
 
 class GroupEndpoint extends AbstractEndpoint
 {
@@ -38,6 +39,28 @@ class GroupEndpoint extends AbstractEndpoint
     public function getGroups(array $searchAttributes = [])
     {
         return $this->handleRequest('Group', 'Get', $searchAttributes);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @throws \Exception
+     *
+     * @return Group
+     */
+    public function getGroupById(int $id)
+    {
+        $searchAttributes = [
+            'query' => ['group_id' => $id]
+        ];
+
+        $response = $this->handleRequest('Group', 'Get', $searchAttributes);
+
+        if ($response->getException()) {
+            throw new \Exception($response->getException()->getMessage());
+        }
+
+        return $response->getResult()[0];
     }
 
     /**

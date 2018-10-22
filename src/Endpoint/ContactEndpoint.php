@@ -31,6 +31,30 @@ class ContactEndpoint extends AbstractEndpoint
     }
 
     /**
+     * @param array $contactData
+     *
+     * @throws \Exception
+     *
+     * @return Contact
+     */
+    public function addContact(array $contactData)
+    {
+        $response = $this->handleRequest('Contact', 'Add', ['contacts' => [$contactData]]);
+
+        if ($response->getException()) {
+            throw new \Exception($response->getException()->getMessage());
+        }
+
+        $contact = $response->getResult()[0];
+
+        if ($contact->getErrorCode()) {
+            throw new \Exception('Error adding customer to greenrope: '.$contact->getErrorText());
+        }
+
+        return $contact;
+    }
+
+    /**
      * Searches contacts by the provided attributes.
      *
      * @param array $searchAttributes
