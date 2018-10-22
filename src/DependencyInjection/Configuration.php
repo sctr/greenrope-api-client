@@ -24,10 +24,21 @@ class Configuration implements ConfigurationInterface
 
         $root
             ->children()
-                ->scalarNode('api_url')->isRequired()->defaultValue('https://api.stgi.net/api-xml')->end()
-                ->scalarNode('email')->isRequired()->end()
-                ->scalarNode('password')->isRequired()->end()
-                ->integerNode('account_id')->isRequired()->end()
+                ->arrayNode('connection')
+                    ->children()
+                        ->scalarNode('api_url')->isRequired()->defaultValue('https://api.stgi.net/api-xml')->end()
+                        ->scalarNode('email')->isRequired()->end()
+                        ->scalarNode('password')->isRequired()->end()
+                        ->integerNode('account_id')->isRequired()->end()
+                    ->end()
+                ->end()
+                ->arrayNode('groups')
+                    ->arrayPrototype()
+                        ->children()
+                            ->integerNode('id')->isRequired()->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $tree;

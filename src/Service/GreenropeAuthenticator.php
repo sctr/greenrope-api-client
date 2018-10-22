@@ -29,9 +29,6 @@ class GreenropeAuthenticator extends Client
     {
         $this->xmlSerializer = new XmlSerializer();
 
-        $config['base_uri'] = $config['api_url'];
-        unset($config['api_url']);
-
         parent::__construct($config);
     }
 
