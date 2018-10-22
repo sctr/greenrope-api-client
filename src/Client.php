@@ -31,7 +31,7 @@ class Client extends BaseClient
 
     public function __construct(array $config = [])
     {
-        $connectionData = $config['connection'];
+        $connectionData             = $config['connection'];
         $connectionData['base_uri'] = $connectionData['api_url'];
         unset($connectionData['api_url']);
 

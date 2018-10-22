@@ -51,7 +51,7 @@ class GroupEndpoint extends AbstractEndpoint
     public function getGroupById(int $id)
     {
         $searchAttributes = [
-            'query' => ['group_id' => $id]
+            'query' => ['group_id' => $id],
         ];
 
         $response = $this->handleRequest('Group', 'Get', $searchAttributes);
