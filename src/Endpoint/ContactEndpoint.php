@@ -106,6 +106,30 @@ class ContactEndpoint extends AbstractEndpoint
     }
 
     /**
+     * @param array $contactData
+     *
+     * @throws \Exception
+     *
+     * @return Contact
+     */
+    public function editContact(array $contactData)
+    {
+        $response = $this->handleRequest('Contact', 'Edit', ['contacts' => [$contactData]]);
+
+        if ($response->getException()) {
+            throw new \Exception($response->getException()->getMessage());
+        }
+
+        $contact = $response->getResult()[0];
+
+        if ($contact->getErrorCode()) {
+            throw new \Exception('Error editing customer on greenrope: '.$contact->getErrorText());
+        }
+
+        return $contact;
+    }
+
+    /**
      * @param array $contacts
      *
      * @throws \Exception
@@ -245,5 +269,37 @@ class ContactEndpoint extends AbstractEndpoint
     public function deleteContactsFromGroup(array $parameters)
     {
         return $this->handleRequest('Contact', 'Delete', $parameters, true, 'FromGroup');
+    }
+
+    /**
+     * @param int $contactId
+     * @param int $groupId
+     *
+     * @throws \Exception
+     *
+     * @return bool
+     */
+    public function deleteContactFromGroup(int $contactId, int $groupId)
+    {
+        $parameters = [
+            'query'    => ['group_id' => $groupId],
+            'contacts' => [
+                ['query' => ['contact_id' => $contactId]],
+            ],
+        ];
+
+        $response = $this->handleRequest('Contact', 'Delete', $parameters, true, 'FromGroup');
+
+        if ($response->getException()) {
+            throw new \Exception($response->getException()->getMessage());
+        }
+
+        $contact = $response->getResult()[0];
+
+        if ($contact->getErrorCode()) {
+            throw new \Exception('Error deleting customer from greenrope group: '.$contact->getErrorText());
+        }
+
+        return true;
     }
 }
