@@ -162,7 +162,7 @@ class ContactEndpoint extends AbstractEndpoint
      */
     public function getContactGroupsRequest($contactId)
     {
-        return $this->handleRequest('Contact', 'Get', ['contact_id' => $contactId], false, 'Groups');
+        return $this->handleRequest('Contact', 'Get', ['query' => ['contact_id' => $contactId]], false, 'Groups');
     }
 
     /**
@@ -257,6 +257,37 @@ class ContactEndpoint extends AbstractEndpoint
     public function addContactsToGroup(array $parameters)
     {
         return $this->handleRequest('Contact', 'Add', $parameters, true, 'ToGroup');
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @throws \Exception
+     *
+     * @return bool
+     */
+    public function addContactToGroup(int $contactId, int $groupId)
+    {
+        $parameters = [
+            'query'    => ['group_id' => $groupId],
+            'contacts' => [
+                ['query' => ['contact_id' => $contactId]],
+            ],
+        ];
+
+        $response = $this->handleRequest('Contact', 'Add', $parameters, true, 'ToGroup');
+
+        if ($response->getException()) {
+            throw new \Exception($response->getException()->getMessage());
+        }
+
+        $contact = $response->getResult()[0];
+
+        if ($contact->getErrorCode()) {
+            throw new \Exception('Error adding contact to greenrope group: '.$contact->getErrorText());
+        }
+
+        return true;
     }
 
     /**
