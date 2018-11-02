@@ -17,6 +17,10 @@ use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Metadata\Driver\AnnotationDriver;
 use Metadata\MetadataFactory;
 
+/**
+ * @method int getErrorCode()
+ * @method string getErrorText()
+ */
 abstract class AbstractModel
 {
     /**

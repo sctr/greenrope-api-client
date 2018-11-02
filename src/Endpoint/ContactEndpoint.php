@@ -160,9 +160,9 @@ class ContactEndpoint extends AbstractEndpoint
      *
      * @return ApiResponse
      */
-    public function getContactGroupsRequest($contactId)
+    public function getContactGroupsRequest(array $searchCriteria)
     {
-        return $this->handleRequest('Contact', 'Get', ['query' => ['contact_id' => $contactId]], false, 'Groups');
+        return $this->handleRequest('Contact', 'Get', ['query' => $searchCriteria], false, 'Groups');
     }
 
     /**
@@ -260,18 +260,19 @@ class ContactEndpoint extends AbstractEndpoint
     }
 
     /**
-     * @param array $parameters
+     * @param int $groupId
+     * @param array $contactSearchCriteria
      *
      * @throws \Exception
      *
      * @return bool
      */
-    public function addContactToGroup(int $contactId, int $groupId)
+    public function addContactToGroup(int $groupId, array $contactSearchCriteria)
     {
         $parameters = [
             'query'    => ['group_id' => $groupId],
             'contacts' => [
-                ['query' => ['contact_id' => $contactId]],
+                ['query' => $contactSearchCriteria],
             ],
         ];
 
@@ -310,12 +311,12 @@ class ContactEndpoint extends AbstractEndpoint
      *
      * @return bool
      */
-    public function deleteContactFromGroup(int $contactId, int $groupId)
+    public function deleteContactFromGroup(int $groupId, array $contactSearchCriteria)
     {
         $parameters = [
             'query'    => ['group_id' => $groupId],
             'contacts' => [
-                ['query' => ['contact_id' => $contactId]],
+                ['query' => $contactSearchCriteria],
             ],
         ];
 
