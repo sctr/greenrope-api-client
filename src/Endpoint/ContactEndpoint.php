@@ -260,7 +260,7 @@ class ContactEndpoint extends AbstractEndpoint
     }
 
     /**
-     * @param int $groupId
+     * @param int   $groupId
      * @param array $contactSearchCriteria
      *
      * @throws \Exception
@@ -304,8 +304,8 @@ class ContactEndpoint extends AbstractEndpoint
     }
 
     /**
-     * @param int $contactId
-     * @param int $groupId
+     * @param int   $groupId
+     * @param array $contactSearchCriteria
      *
      * @throws \Exception
      *
