@@ -100,7 +100,7 @@ class ContactEndpointTest extends BaseTest
 
     public function testGetContactGroups()
     {
-        $response = $this->client->contact->getContactGroupsRequest(4);
+        $response = $this->client->contact->getContactGroupsRequest(['contact_id' => 4]);
 
         $this->assertInstanceOf(ApiResponse::class, $response);
     }

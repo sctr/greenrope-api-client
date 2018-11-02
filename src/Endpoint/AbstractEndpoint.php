@@ -82,7 +82,7 @@ abstract class AbstractEndpoint
         $responseObject = $this->xmlConverter->deserializeXml($response->getBody(), $responseName);
         if (!$responseObject->getSuccess()) {
             $apiResponse->setException(
-                new \Exception(sprintf('An error occured: %s', $responseObject->getErrorText()))
+                new \Exception(sprintf('An error occured: %s', $responseObject->getErrorText()), $responseObject->getErrorCode())
             );
         }
 
