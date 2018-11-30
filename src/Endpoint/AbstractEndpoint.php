@@ -135,7 +135,7 @@ abstract class AbstractEndpoint
         $xml   = $this->xmlConverter->serializeObjectToXml($request);
 
         if ($contactReplaceGroups) {
-            $xml = str_replace("<Groups>", "<Groups replace=\"true\">", $xml);
+            $xml = str_replace('<Groups>', '<Groups replace="true">', $xml);
         }
 
         $parameters = [

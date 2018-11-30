@@ -335,7 +335,6 @@ class ContactEndpoint extends AbstractEndpoint
         return true;
     }
 
-
     /**
      * @param string $groupName
      * @param array  $contactSearchCriteria
