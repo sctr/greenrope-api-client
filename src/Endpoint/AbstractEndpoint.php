@@ -100,6 +100,17 @@ abstract class AbstractEndpoint
      */
     private function buildParametersForRequest($method, $objectName, array $parameters = [], $multipleObjects = true, $additionalNameParameters = null)
     {
+        $contactReplaceGroups = false;
+
+        if (
+            ucfirst($objectName) === 'Contact'
+            && ucfirst($method) === 'Edit'
+            && array_key_exists('replace', $parameters['contacts'][0]['groups'])
+        ) {
+            $contactReplaceGroups = true;
+            unset($parameters['contacts'][0]['groups']['replace']);
+        }
+
         $requestName = 'Sctr\Greenrope\Api\Request\\'.ucfirst($objectName).'\\'.ucfirst($method);
 
         if (!$multipleObjects) {
@@ -122,6 +133,10 @@ abstract class AbstractEndpoint
 
         $token = $this->authenticator->getAuthToken();
         $xml   = $this->xmlConverter->serializeObjectToXml($request);
+
+        if ($contactReplaceGroups) {
+            $xml = str_replace('<Groups>', '<Groups replace="true">', $xml);
+        }
 
         $parameters = [
             'form_params' => [
