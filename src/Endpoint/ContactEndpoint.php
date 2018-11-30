@@ -334,4 +334,37 @@ class ContactEndpoint extends AbstractEndpoint
 
         return true;
     }
+
+
+    /**
+     * @param string $groupName
+     * @param array  $contactSearchCriteria
+     *
+     * @throws \Exception
+     *
+     * @return bool
+     */
+    public function deleteContactFromGroupByGroupName(string $groupName, array $contactSearchCriteria)
+    {
+        $parameters = [
+            'query'    => ['group_name' => $groupName],
+            'contacts' => [
+                ['query' => $contactSearchCriteria],
+            ],
+        ];
+
+        $response = $this->handleRequest('Contact', 'Delete', $parameters, true, 'FromGroup');
+
+        if ($response->getException()) {
+            throw new \Exception($response->getException()->getMessage());
+        }
+
+        $contact = $response->getResult()[0];
+
+        if ($contact->getErrorCode()) {
+            throw new \Exception('Error deleting customer from greenrope group: '.$contact->getErrorText());
+        }
+
+        return true;
+    }
 }

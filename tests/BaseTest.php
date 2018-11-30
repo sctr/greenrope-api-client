@@ -36,10 +36,15 @@ abstract class BaseTest extends TestCase
 
         //owner account
         $this->client = new Client([
-            'email'      => 'clement@sctr.net',
-            'password'   => '55da0MD6V3*v',
-            'api_url'    => 'https://api.stgi.net/api-xml',
-            'account_id' => 45429,
+            'connection' => [
+                'email'      => 'clement@sctr.net',
+                'password'   => '55da0MD6V3*v',
+                'api_url'    => 'https://api.stgi.net/api-xml',
+                'account_id' => 45429,
+            ],
+            'groups' => [
+                'free_users' => ['id' => 1],
+            ],
         ]);
     }
 }
