@@ -105,6 +105,7 @@ abstract class AbstractEndpoint
         if (
             ucfirst($objectName) === 'Contact'
             && ucfirst($method) === 'Edit'
+            && array_key_exists('groups', $parameters['contacts'][0])
             && array_key_exists('replace', $parameters['contacts'][0]['groups'])
         ) {
             $contactReplaceGroups = true;
