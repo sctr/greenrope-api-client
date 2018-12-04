@@ -18,6 +18,8 @@ use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 class ContactEndpoint extends AbstractEndpoint
 {
+    const CODE_CUSTOMER_ALREADY_EXISTS = 1002;
+
     /**
      * @param array $contacts - an array containing arrays of contact data
      *
@@ -48,10 +50,47 @@ class ContactEndpoint extends AbstractEndpoint
         $contact = $response->getResult()[0];
 
         if ($contact->getErrorCode()) {
-            throw new \Exception('Error adding customer to greenrope: '.$contact->getErrorText());
+            throw new \Exception('Error adding customer to greenrope: '.$contact->getErrorText(), $contact->getErrorCode());
         }
 
         return $contact;
+    }
+
+    /**
+     * Adds a contact, and if it is existing makes an update based on the email if sent in the $contactData array.
+     *
+     * @param array $contactData
+     * @param array $groups
+     * @param bool  $groupsReplace
+     *
+     * @throws \Exception
+     *
+     * @return Contact
+     */
+    public function addUpdateContact(array $contactData, array $groups = [], bool $groupsReplace = true)
+    {
+        if (!empty($groups)) {
+            foreach ($groups as $group) {
+                $contactData['groups'][] = [
+                    'value' => $group,
+                ];
+            }
+        }
+
+        try {
+            return $this->addContact($contactData);
+        } catch (\Exception $e) {
+            if ($e->getCode() === self::CODE_CUSTOMER_ALREADY_EXISTS && !empty($contactData['email'])) {
+                $contactData['query'] = ['email' => $contactData['email']];
+                if ($groupsReplace) {
+                    $contactData['groups']['replace'] = true;
+                }
+
+                return $this->editContact($contactData);
+            }
+
+            throw $e;
+        }
     }
 
     /**

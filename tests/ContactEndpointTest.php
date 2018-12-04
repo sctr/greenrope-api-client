@@ -223,4 +223,20 @@ class ContactEndpointTest extends BaseTest
         $this->assertTrue(!empty($field));
         $this->assertEquals($field->getName(), 'Username');
     }
+
+    public function testAddUpdateContact()
+    {
+        $contact1 = [
+            'firstName'         => 'Test',
+            'email'             => 'elizabeta.petrevska@gmail.com',
+            'userDefinedFields' => [
+                ['query' => ['fieldname' => 'Username'], 'value' => 'Username value'],
+                ['query' => ['fieldname' => 'Username'], 'value' => 'Username2 value'],
+            ],
+        ];
+
+        $contact = $this->client->contact->addUpdateContact($contact1, ['Test group'], true);
+
+        $this->assertInstanceOf(Contact::class, $contact);
+    }
 }
