@@ -18,7 +18,7 @@ use Sctr\Greenrope\Api\Response\GreenropeResponse;
 
 class ContactEndpoint extends AbstractEndpoint
 {
-    CONST CODE_CUSTOMER_ALREADY_EXISTS = 1002;
+    const CODE_CUSTOMER_ALREADY_EXISTS = 1002;
 
     /**
      * @param array $contacts - an array containing arrays of contact data
@@ -57,7 +57,7 @@ class ContactEndpoint extends AbstractEndpoint
     }
 
     /**
-     * Adds a contact, and if it is existing makes an update based on the email if sent in the $contactData array
+     * Adds a contact, and if it is existing makes an update based on the email if sent in the $contactData array.
      *
      * @param array $contactData
      * @param array $groups
@@ -72,7 +72,7 @@ class ContactEndpoint extends AbstractEndpoint
         if (!empty($groups)) {
             foreach ($groups as $group) {
                 $contactData['groups'][] = [
-                    'value' => $group
+                    'value' => $group,
                 ];
             }
         }

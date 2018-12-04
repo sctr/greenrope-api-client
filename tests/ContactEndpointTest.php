@@ -228,7 +228,7 @@ class ContactEndpointTest extends BaseTest
     {
         $contact1 = [
             'firstName'         => 'Test',
-            'email'           => 'elizabeta.petrevska@gmail.com',
+            'email'             => 'elizabeta.petrevska@gmail.com',
             'userDefinedFields' => [
                 ['query' => ['fieldname' => 'Username'], 'value' => 'Username value'],
                 ['query' => ['fieldname' => 'Username'], 'value' => 'Username2 value'],
