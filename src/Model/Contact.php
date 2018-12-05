@@ -62,7 +62,7 @@ class Contact extends AbstractModel
      * @Serializer\SkipWhenEmpty()
      * @Serializer\Type("string")
      */
-    protected $lastName;
+    protected $lastname;
 
     /**
      * @Serializer\XmlElement(cdata=false)
