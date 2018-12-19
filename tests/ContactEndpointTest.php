@@ -247,8 +247,8 @@ class ContactEndpointTest extends BaseTest
                 'contact_id' => 44712,
             ],
             'groups' => [
-                ['value' => 'Test group'],
-                ['value' => '[BANG] Free Leads (inactive)'],
+                ['value'  => 'Test group'],
+                ['value'  => '[BANG] Free Leads (inactive)'],
                 'replace' => true,
             ],
             'removeGroups' => [

@@ -67,7 +67,7 @@ abstract class AbstractModel
         $metadata        = $metadataFactory->getMetadataForClass(get_class($this));
 
         foreach ($content as $key => $value) {
-            $key = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $key))));
+            $key         = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $key))));
             $keyMetadata = $metadata->propertyMetadata[$key];
             if (property_exists($this, $key)) {
                 if ($key === 'query') {
