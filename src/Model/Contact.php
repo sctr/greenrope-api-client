@@ -256,6 +256,14 @@ class Contact extends AbstractModel
     protected $groups;
 
     /**
+     * @Serializer\XmlList(entry="RemoveGroup")
+     * @Serializer\SkipWhenEmpty()
+     * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Group>")
+     * @Serializer\SerializedName("RemoveGroups")
+     */
+    protected $removeGroups;
+
+    /**
      * @Serializer\XmlList(entry="Tag")
      * @Serializer\SkipWhenEmpty()
      * @Serializer\Type("array<Sctr\Greenrope\Api\Model\Tag>")

@@ -29,14 +29,14 @@ class ContactEndpointTest extends BaseTest
     public function testAddContactsRequest()
     {
         $contact1 = [
-            'firstName'         => 'Test',
+            'firstname'         => 'Test',
             'email  '           => 'testmail@tt.t',
             'userDefinedFields' => [
                 ['query' => ['fieldname' => 'Username'], 'value' => 'Username value'],
                 ['query' => ['fieldname' => 'Username'], 'value' => 'Username2 value'],
             ],
             'groups'            => [
-                ['value' => 'Free Users (Social Networks)'],
+                ['value' => 'Test group'],
             ],
         ];
 
@@ -53,7 +53,7 @@ class ContactEndpointTest extends BaseTest
     public function testGetContacts()
     {
         $searchAttributes = [
-            'query' => ['get_all' => true],
+            'query' => ['start_chunk_page' => 0, 'start_chunk_size' => 200],
         ];
 
         /** @var ApiResponse $response */
@@ -70,8 +70,8 @@ class ContactEndpointTest extends BaseTest
             'query'     => [
                 'email' => 'testmail@tt.t',
             ],
-            'firstName' => 'Test Edited',
-            'lastName'  => 'Test Edited',
+            'firstname' => 'Test Edited',
+            'lastname'  => 'Test Edited',
         ];
 
         $response = $this->client->contact->editContacts(['contacts' => [$editContact1]]);
@@ -227,7 +227,7 @@ class ContactEndpointTest extends BaseTest
     public function testAddUpdateContact()
     {
         $contact1 = [
-            'firstName'         => 'Test',
+            'firstname'         => 'Test',
             'email'             => 'elizabeta.petrevska@gmail.com',
             'userDefinedFields' => [
                 ['query' => ['fieldname' => 'Username'], 'value' => 'Username value'],
@@ -238,5 +238,27 @@ class ContactEndpointTest extends BaseTest
         $contact = $this->client->contact->addUpdateContact($contact1, ['Test group'], true);
 
         $this->assertInstanceOf(Contact::class, $contact);
+    }
+
+    public function testEditContactWithReplace()
+    {
+        $editContact1 = [
+            'query'     => [
+                'contact_id' => 44712,
+            ],
+            'groups' => [
+                ['value' => 'Test group'],
+                ['value' => '[BANG] Free Leads (inactive)'],
+                'replace' => true,
+            ],
+            'removeGroups' => [
+                ['value' => '[BANG] Free Leads (inactive)'],
+            ],
+        ];
+
+        $response = $this->client->contact->editContact($editContact1);
+
+        $this->assertTrue(is_array($response->getResult()));
+        $this->assertInstanceOf(Contact::class, $response->getResult()[0]);
     }
 }
