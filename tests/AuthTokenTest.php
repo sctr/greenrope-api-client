@@ -25,14 +25,14 @@ class GeneralTest extends BaseTest
 
     public function testGetTokenSuccess()
     {
-        $params =['email' => 'thomas@bang.com', 'password' => 'SctrApi5!', 'api_url' => 'https://api.stgi.net/api-xml'];
+        $params =['email' => 'email@greenrope.com', 'password' => 'password', 'api_url' => 'https://api.stgi.net/api-xml'];
 
         $auth = new class(new Client($params)) extends AbstractEndpoint {
             public function getAuthToken()
             {
                 $parameters = [
-                    'email'    => 'thomas@bang.com',
-                    'password' => 'SctrApi5!',
+                    'email'    => 'email@greenrope.com',
+                    'password' => 'password',
                     'xml'      => AbstractEndpoint::GET_AUTH_TOKEN_XML,
                 ];
 
