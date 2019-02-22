@@ -26,19 +26,11 @@ abstract class BaseTest extends TestCase
         $loader = require '../vendor/autoload.php';
         AnnotationRegistry::registerLoader([$loader, 'loadClass']);
 
-//        shared access user
-//        $this->client = new Client([
-//            'email'      => 'thomas@bang.com',
-//            'password'   => 'SctrApi5!',
-//            'api_url'    => 'https://api.stgi.net/api-xml',
-//            'account_id' => 45429,
-//        ]);
-
         //owner account
         $this->client = new Client([
             'connection' => [
-                'email'      => 'clement@sctr.net',
-                'password'   => '55da0MD6V3*v',
+                'email'      => 'email@greenrope.com',
+                'password'   => 'password',
                 'api_url'    => 'https://api.stgi.net/api-xml',
                 'account_id' => 45429,
             ],
