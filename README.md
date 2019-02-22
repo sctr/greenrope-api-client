@@ -14,7 +14,7 @@ Add configuration to "greenrope_api_client.yaml"
 ```$yaml
 greenrope_api_client:
     api_url: https://api.stgi.net/api-xml
-    email: thomas@bang.com
+    email: email@greenrope.com
     password: password
     account_id: account id
 
