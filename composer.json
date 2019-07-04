@@ -7,7 +7,7 @@
         "phpunit/phpunit": "^6.0|^7.0",
         "jms/serializer": "^1.13"
     },
-    "license": "Proprietary",
+    "license": "MIT",
     "autoload":          {
         "psr-4": {
             "Sctr\\Greenrope\\Api\\": "src"
