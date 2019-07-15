@@ -25,9 +25,14 @@ class GreenropeAuthenticator extends Client
     /** @var string */
     private $token;
 
-    public function __construct(array $config)
+    /** @var callable */
+    private $saveToken;
+
+    public function __construct(array $config, string $token = null, callable $saveToken = null)
     {
         $this->xmlSerializer = new XmlSerializer();
+        $this->token = $token;
+        $this->saveToken = $saveToken;
 
         parent::__construct($config);
     }
@@ -51,6 +56,9 @@ class GreenropeAuthenticator extends Client
 
         if (!empty($token = $response->getResult())) {
             $this->token = $token;
+            if (is_callable($this->saveToken)) {
+                ($this->saveToken)($this->token);
+            }
 
             return $this->token;
         } else {

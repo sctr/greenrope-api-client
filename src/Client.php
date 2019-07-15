@@ -29,7 +29,12 @@ class Client extends BaseClient
     /** @var array */
     private $groups;
 
-    public function __construct(array $config = [])
+    /**
+     * @param array $config
+     * @param string|null $token pre-seeded token for auth
+     * @param callable|null $saveToken takes token string as param, should save with a TTL of two hours
+     */
+    public function __construct(array $config = [], string $token = null, callable $saveToken = null)
     {
         $connectionData                    = $config['connection'];
         $connectionData['base_uri']        = $connectionData['api_url'];
@@ -38,7 +43,7 @@ class Client extends BaseClient
 
         parent::__construct($connectionData);
 
-        $this->authenticator = new GreenropeAuthenticator($connectionData);
+        $this->authenticator = new GreenropeAuthenticator($connectionData, $token, $saveToken);
 
         $this->groups = $config['groups'];
     }
