@@ -16,7 +16,7 @@ use Sctr\Greenrope\Api\Client;
 use Sctr\Greenrope\Api\Endpoint\AbstractEndpoint;
 use Sctr\Greenrope\Api\Response\ApiAuthTokenResponse;
 
-class GeneralTest extends BaseTest
+class AuthTokenTest extends BaseTest
 {
     public function setUp()
     {
