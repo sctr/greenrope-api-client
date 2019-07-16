@@ -111,7 +111,7 @@ class CrmActivity extends AbstractModel
     /**
      * @Serializer\XmlElement(cdata=false)
      * @Serializer\SkipWhenEmpty()
-     * @Serializer\Type("DateTime<'Y-m-d H:i:s'>")
+     * @Serializer\Type("string")
      * @Serializer\SerializedName("Done_date")
      */
     protected $doneDate;
