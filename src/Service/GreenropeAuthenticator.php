@@ -31,8 +31,8 @@ class GreenropeAuthenticator extends Client
     public function __construct(array $config, string $token = null, callable $saveToken = null)
     {
         $this->xmlSerializer = new XmlSerializer();
-        $this->token = $token;
-        $this->saveToken = $saveToken;
+        $this->token         = $token;
+        $this->saveToken     = $saveToken;
 
         parent::__construct($config);
     }
