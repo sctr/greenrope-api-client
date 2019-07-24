@@ -30,8 +30,8 @@ class Client extends BaseClient
     private $groups;
 
     /**
-     * @param array $config
-     * @param string|null $token pre-seeded token for auth
+     * @param array         $config
+     * @param string|null   $token     pre-seeded token for auth
      * @param callable|null $saveToken takes token string as param, should save with a TTL of two hours
      */
     public function __construct(array $config = [], string $token = null, callable $saveToken = null)
