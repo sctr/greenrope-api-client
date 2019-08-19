@@ -77,6 +77,24 @@ class Client extends BaseClient
         return new $class($this, $this->authenticator);
     }
 
+    public function getAccountIds()
+    {
+        $response = $this->post($this->getConfig('base_uri'), [
+            'form_params' => [
+                'email'      => $this->getConfig('email'),
+                'auth_token' => $this->authenticator->getAuthToken(),
+                'xml'        => '<GetAccountsWithAccessRequest response="json"></GetAccountsWithAccessRequest>',
+            ],
+        ]);
+
+        $json = json_decode($response->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+
+        return array_slice(
+            array_column($json['getaccountswithaccessresponse']['accounts']['account'], 'accountnumber'),
+            1 // filter out account default GreenRope account ID
+        );
+    }
+
     public function getGroup(string $name)
     {
         return $this->groups[$name];
