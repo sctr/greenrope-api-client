@@ -20,4 +20,18 @@ class CompanyEndpoint extends AbstractEndpoint
         $searchAttributes['query']['group_id'] = $groupId;
         return $this->handleRequest('Company', 'Get', $searchAttributes);
     }
+
+    /**
+     * Gets company contacts, filtered to a group and/or company
+     *
+     * @param int $groupId
+     * @param int|null $companyId
+     * @return ApiResponse
+     * @throws \Exception
+     */
+    public function getCompanyContacts(int $groupId, int $companyId)
+    {
+        return $this->handleRequest('Contact', 'GetCompany',
+            ['query' => ['group_id' => $groupId, 'company_id' => $companyId]], true);
+    }
 }

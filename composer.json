@@ -3,6 +3,7 @@
     "description": "Client for greenrope API",
     "type": "library",
     "require": {
+        "php": "^7",
         "guzzlehttp/guzzle": "^6.3",
         "jms/serializer": "^1.13"
     },
