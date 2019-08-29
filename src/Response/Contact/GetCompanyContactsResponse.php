@@ -31,7 +31,7 @@ class GetCompanyContactsResponse extends GreenropeResponse
     {
         if ($this->getSuccess()) {
             return [
-                'contacts' => $this->contacts
+                'contacts' => $this->contacts,
             ];
         }
     }

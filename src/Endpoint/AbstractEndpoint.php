@@ -23,7 +23,7 @@ abstract class AbstractEndpoint
 {
     const IRREGULAR_PLURALS = [
         'CrmActivity' => 'CrmActivities',
-        'Company' => 'Companies',
+        'Company'     => 'Companies',
     ];
 
     /** @var Client */
